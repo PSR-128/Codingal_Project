@@ -10,7 +10,7 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-image: url('https://example.com/background-image.jpg');
+            background-image: url('https://social-innovation.hitachi/-/media/project/hitachi/sib/en-in/knowledge-hub/collaborate/smart-sustainable-cities/images/Coll18A.png');
             background-size: cover;
             background-position: center;
             animation: backgroundAnimate 30s linear infinite;
@@ -27,7 +27,7 @@
 
         header,
         footer {
-            background: linear-gradient(to right, #003049, #005a9c);
+            background: linear-gradient(to right,#005a9c,#79dd35 ); // this changes color for header and footer
         }
 
         a {
@@ -41,7 +41,6 @@
         }
 
         header {
-            background-color: #005a9c;
             color: white;
             padding: 1rem;
             position: relative;
@@ -75,7 +74,7 @@
         }
 
         h1, h2 {
-            color: #005a9c;
+            color: #eecf3f;
             animation: slideInLeft 1s ease-in-out;
         }
 
@@ -91,7 +90,7 @@
         }
 
         footer {
-            background-color: #005a9c;
+            background-color: #79dd35;
             color: white;
             text-align: center;
             padding: 1rem;
@@ -128,7 +127,7 @@
         <p>Sustainable cities are urban areas that create and maintain the health, safety, and prosperity of their inhabitants, while also protecting the environment. Learn more about sustainable cities in our <a href="#">guide</a>.</p>
     </main>
     <footer>
-        &copy; 2023 Sustainable Cities. All rights reserved.
+        &copy; 2024 Sustainable Cities. All rights reserved.
     </footer>
 </body>
 </html>
