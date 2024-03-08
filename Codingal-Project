@@ -5,115 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-image: url('https://social-innovation.hitachi/-/media/project/hitachi/sib/en-in/knowledge-hub/collaborate/smart-sustainable-cities/images/Coll18A.png');
-            background-size: cover;
-            background-position: center;
-            animation: backgroundAnimate 30s linear infinite;
-        }
+     body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Keeps the background fixed */
+        opacity: 0.9; /* Adjust the transparency of the background image */
+        animation: backgroundAnimate 15s linear infinite; /* Faster animation for background movement */
+}
 
-        @keyframes backgroundAnimate {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
+@keyframes backgroundAnimate {
+    0% {
+        background-position: 100% 50%; /* Start from the right */
+    }
+    100% {
+        background-position: 0% 50%; /* Move to the left */
+    }
+}
 
-        header,
-        footer {
-            background: linear-gradient(to right,#005a9c,#79dd35 ); // this changes color for header and footer
-        }
 
-        a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+header,
+footer,
+a {
+    color: #333; /* Change text color for better visibility */
+}
 
-        a:hover {
-            color: #cccccc;
-        }
+a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
 
-        header {
-            color: white;
-            padding: 1rem;
-            position: relative;
-        }
+a:hover {
+    color: #cccccc;
+}
 
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 89, 156, 0.8), rgba(0, 89, 156, 0));
-            z-index: -1;
-        }
+header {
+    color: white;
+    padding: 1rem;
+    position: relative;
+}
 
-        main {
-            padding: 2rem;
-            margin: 0 auto;
-            max-width: 800px;
-            animation: fadeIn 2s ease-in;
-        }
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 89, 156, 0.8), rgba(0, 89, 156, 0));
+    z-index: -1;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+main {
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 800px;
+    animation: fadeIn 2s ease-in;
+}
 
-        h1, h2 {
-            color: #eecf3f;
-            animation: slideInLeft 1s ease-in-out;
-        }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+h1, h2 {
+    color: #eecf3f;
+    animation: slideInLeft 1s ease-in-out;
+}
 
-        footer {
-            background-color: #79dd35;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            animation: slideInUp 1s ease-in-out;
-        }
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
 
-        @keyframes slideInUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+footer {
+    background-color: #79dd35;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    animation: slideInUp 1s ease-in-out;
+}
 
-        @media screen and (max-width: 600px) {
-            main {
-                width: 100%;
-            }
-        }
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    main {
+        width: 100%;
+    }
+}
+
     </style>
 </head>
 <body>
