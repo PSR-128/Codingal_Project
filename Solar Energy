@@ -6,7 +6,7 @@
   <style>
     body {
         font-family: 'Roboto', sans-serif;
-        line-height: 1.6;
+        line-height: 3.0;
         color: white;
         text-align: center; 
         margin: 0;
