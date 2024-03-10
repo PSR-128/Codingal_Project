@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
-    <div class="quiz-container">
-        <h3 class="quiz"><a href = "quiz.html">Quiz</a></h3>
-    </div>
     <style>
         .quiz-container {
-        background-color: #3EB489; /* Slick color related to clean energy */
-        padding: 8.5px; /* Optional: Add padding for spacing */
-    }
+            background-color: #3EB489; /* Slick color related to clean energy */
+            padding: 8.5px; /* Optional: Add padding for spacing */
+        }
 
         .quiz {
-            margin-left: 1000px; /* Adjust the margin-left as needed */
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
+
         body {
             font-family: 'Roboto', sans-serif; /* Apply Roboto font to the entire document */
             line-height: 1.6;
@@ -37,6 +37,7 @@
             padding: 7.18rem 4rem; /* Increased padding to accommodate the whole image */
             color: #333; /* Darker text color for better visibility */
             text-align: left; /* Align text to the left */
+            position: relative; /* Ensure relative positioning for child elements */
         }
 
         @keyframes backgroundAnimate {
@@ -91,6 +92,9 @@
 </head>
 <body>
 <header>
+    <div class="quiz-container">
+        <h3 class="quiz"><a href="quiz.html">Quiz</a></h3>
+    </div>
     <div>
         <strong><h1 style="text-align: left; margin-top: -0.3rem;">SDG-7 Clean Energy</h1></strong>
         <h2 style="text-align: left; margin-top: -0.3rem;">UN SDG</h2>
