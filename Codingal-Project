@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
+    <div class="quiz-container">
+        <h3 class="quiz"><a href = "quiz.html">Quiz</a></h3>
+    </div>
     <style>
+        .quiz-container {
+        background-color: #3EB489; /* Slick color related to clean energy */
+        padding: 8.5px; /* Optional: Add padding for spacing */
+    }
+
+        .quiz {
+            margin-left: 1000px; /* Adjust the margin-left as needed */
+        }
         body {
             font-family: 'Roboto', sans-serif; /* Apply Roboto font to the entire document */
             line-height: 1.6;
