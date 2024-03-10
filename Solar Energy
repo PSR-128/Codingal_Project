@@ -1,1 +1,39 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background-color: #ffffff;
+      text-align: center; 
+      margin: 0;
+      padding: 0;
+  }
+  
+  main {
+      padding: 2rem;
+      margin: 0 auto;
+      max-width: 800px;
+      }
+      
+  footer {
+        background-color: #5ba827;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        
+  }
+        
+</style>
+</head>
+<body>
+<h1>Solar Energy</h1>
+<p>Using <b>photovolatic cells</b> in solar panels, solar energy is captured from the sun and used to generate power. It can aid in lowering greenhouse gas emissions and is a clean, renewable energy source that is also favorable to the environment. With the use of inverters, solar panels can convert sunlight into direct current (DC) power, which can then be converted into alternating current (AC) electricity. Solar energy is not only an affordable source of electricity for households and businesses, but it also has the potential to increase energy security by lowering dependency on fossil fuels. In remote and rural locations that are not connected to the conventional power system, it can also offer access to electricity. All things considered, solar energy is an essential technology that will become more and more relevant in meeting the energy demand. Over the past X years, global solar energy usage has increase by Y%.</p>
+<br><br><br>
+<footer>
+    &copy; 2024 Sustainable Cities. All rights reserved
+</footer>
+</body>
+</html>
