@@ -100,7 +100,7 @@
 <main>
     <h2>List of Clean Energy Sources:</h2>
     <ul>
-        <li>Solar Energy</li>
+        <li><a href="https://github.com/PSR-128/Codingal_Project/blob/4eee7ea1f09552940289663de21d6ccbdb621a86/Solar%20Energy">Solar Energy</a></li>
         <li>Wind Energy</li>
         <li>Hydroelectric Energy</li>
         <li>Biomass Energy</li>
