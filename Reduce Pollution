@@ -7,15 +7,16 @@
     body {
         font-family: 'Roboto', sans-serif;
         line-height: 1.6;
-        color: black;
+        color: white;
         text-align: center; 
         margin: 0;
         padding: 0;
         width: 100%; 
         height: 100%; 
+        background-color: green;
     }
     header {
-  	  	  background-image: url('data:image/jpeg;base64,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');
+  	  	  background-color: grey;
           background-position: center;
           background-size: cover;
      	  background-attachment: fixed;
@@ -41,7 +42,22 @@
     	text-align: left;
         font-size: 1.5em;
     }
-        
+    a:link {
+    	text-decoration: none;
+        color: black;
+    }
+    a:visited {
+    	text-decoration: none;
+        color: black;
+    }
+    a:hover {
+    	text-decoration: underline;
+        color: white;
+    }
+    a:active {
+    	text-decoration: unerline;
+        color: white;
+    }
   </style>
 </head>
 <body>
@@ -49,19 +65,37 @@
   	<h2>Ways to Reduce Pollution</h2>
     <h3>Commercial Ways:</h3>
     <ul>
-    <li>Biofuels</li>
-    <li>Solar Energy</li>
-    <li>Wind Energy</li>
-    <li>Tidal Energy</li>
-    <li>Geothermal Energy</li>
-    <li>Wave Energy</li>
-    <li>Fuel Cells</li>
+    <li><a href="#biofuels">Biofuels</a></li>
+    <li><a href="#solar">Solar Energy</a></li>
+    <li><a href="#wind">Wind Energy</a></li>
+    <li><a href="#tidal">Tidal Energy</a></li>
+    <li><a href="#geothermal">Geothermal Energy</a></li>
+    <li><a href="#wave">Wave Energy</a></li>
+    <li><a href="#fuel">Hydrogen Fuel Cells</a></li>
     </ul>
     <h3>Individual Ways:</h3>
     <ul>
     <li>Gardens</li>
     <li>Algae Aquariums</li>
-    </ul>
+    </ul><br><br>
+    <div class="biofuels" id="biofuels">
+    <p><strong>Biofuels:</strong>The biofuels market was values at 117 billion U.S. dollars in 2002. However, the value is projected to grow to 201.2 billion U.S. dollars by 2030.</p>
+    </div><br><br>
+    <div class="solar" id="solar">
+    <p><strong>Solar Energy:</strong>The global solar capacity is 850.2 gigawatts, which is 10 times higher than the capacity in 2011. Currently, 4.4% percent of global energy comes from solar energy. Other than being a non-polluting energy source, solar energy provides jobs for over 3.5 million people worldwide.</p>
+    </div><br><br>
+    <div class="wind" id="wind">
+    <p><strong>Wind Energy:</strong>The global wind energy capacity is 906 gigaawatts, and a 9% yearly gowth is shown. Moreover, 680 GW of wind capacity is expected to be installed in the next 5 years. In 2022, wind turbines produced 2100 trillion watt-hours, accounting for 24 percent of total electricty production.</p>
+    </div><br><br>
+    <div class="tidal" id="tidal">
+    <p><strong>Tidal Energy:</strong>The total estimated power produced by tidal energy is 3,000 GW. Each tidal barrage is able to produce between 120 to 400 GW depending on various factors.</p>
+    </div><br><br>
+    <div class="geothermal" id="geothermal">
+    <p><strong>Geothermal Energy:</strong>Over 10 million trillion joules per year are being used in different sectors, globally. As of 2021, global geothermal power generation has amounted to 16 GW. This amount of power generated is able to reduce over 25 million tonnes of carbon dioxide produced by fossile fuels.</p>
+    </div><br><br>
+    <div class="fuel" id="fuel">
+    <p><strong>Hydrogen Fuel Cells:</strong>The annual capcity has grown to 8 GW, while the capcity is expected to grow to 60 GW by 2030.</p>
+    </div><br><br>
   </header>
   <footer>
       &copy; 2024 Sustainable Cities. All rights reserved.
