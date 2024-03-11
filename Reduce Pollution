@@ -70,7 +70,6 @@
     <li><a href="#wind">Wind Energy</a></li>
     <li><a href="#tidal">Tidal Energy</a></li>
     <li><a href="#geothermal">Geothermal Energy</a></li>
-    <li><a href="#wave">Wave Energy</a></li>
     <li><a href="#fuel">Hydrogen Fuel Cells</a></li>
     </ul>
     <h3>Individual Ways:</h3>
@@ -79,22 +78,22 @@
     <li>Algae Aquariums</li>
     </ul><br><br>
     <div class="biofuels" id="biofuels">
-    <p><strong>Biofuels:</strong>The biofuels market was values at 117 billion U.S. dollars in 2002. However, the value is projected to grow to 201.2 billion U.S. dollars by 2030.</p>
+    <p><strong>Biofuels:</strong>The biofuels market was valued at 117 billion U.S. dollars in 2002. However, the value is projected to grow to 201.2 billion U.S. dollars by 2030.</p>
     </div><br><br>
     <div class="solar" id="solar">
     <p><strong>Solar Energy:</strong>The global solar capacity is 850.2 gigawatts, which is 10 times higher than the capacity in 2011. Currently, 4.4% percent of global energy comes from solar energy. Other than being a non-polluting energy source, solar energy provides jobs for over 3.5 million people worldwide.</p>
     </div><br><br>
     <div class="wind" id="wind">
-    <p><strong>Wind Energy:</strong>The global wind energy capacity is 906 gigaawatts, and a 9% yearly gowth is shown. Moreover, 680 GW of wind capacity is expected to be installed in the next 5 years. In 2022, wind turbines produced 2100 trillion watt-hours, accounting for 24 percent of total electricty production.</p>
+    <p><strong>Wind Energy:</strong>The global wind energy capacity is 906 gigawatts, and a 9% yearly growth is shown. Moreover, 680 GW of wind capacity is expected to be installed in the next 5 years. In 2022, wind turbines produced 2100 trillion watt-hours, accounting for 24 percent of total electricity production.</p>
     </div><br><br>
     <div class="tidal" id="tidal">
     <p><strong>Tidal Energy:</strong>The total estimated power produced by tidal energy is 3,000 GW. Each tidal barrage is able to produce between 120 to 400 GW depending on various factors.</p>
     </div><br><br>
     <div class="geothermal" id="geothermal">
-    <p><strong>Geothermal Energy:</strong>Over 10 million trillion joules per year are being used in different sectors, globally. As of 2021, global geothermal power generation has amounted to 16 GW. This amount of power generated is able to reduce over 25 million tonnes of carbon dioxide produced by fossile fuels.</p>
+    <p><strong>Geothermal Energy:</strong>Over 10 million trillion joules per year are being used in different sectors, globally. As of 2021, global geothermal power generation has amounted to 16 GW. This amount of power generated is able to reduce over 25 million tonnes of carbon dioxide produced by fossil fuels.</p>
     </div><br><br>
     <div class="fuel" id="fuel">
-    <p><strong>Hydrogen Fuel Cells:</strong>The annual capcity has grown to 8 GW, while the capcity is expected to grow to 60 GW by 2030.</p>
+    <p><strong>Hydrogen Fuel Cells:</strong>The annual capacity has grown to 8 GW, while the capacity is expected to grow to 60 GW by 2030.</p>
     </div><br><br>
   </header>
   <footer>
