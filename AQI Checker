@@ -1,1 +1,144 @@
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        #cityInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        #aqiContainer {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+        }
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            stroke-width: 20px;
+            stroke-dasharray: 472;
+            stroke-dashoffset: 472;
+            animation: progress 2s linear forwards;
+            transform-origin: center;
+            transform: rotate(270deg);
+        }
+
+        .inner-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes progress {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Air Quality Index Checker</h1>
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button onclick="getAirQualityData()" class="link-button">Get Air Quality Data</button>
+        <div id="aqiContainer">
+            <div class="inner-circle"></div>
+            <svg viewBox="0 0 100 100" class="progress-bar">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#ccffcc" />
+                        <stop offset="25%" stop-color="#99ff99" />
+                        <stop offset="50%" stop-color="#66ff66" />
+                        <stop offset="75%" stop-color="#33cc33" />
+                        <stop offset="100%" stop-color="#00b300" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#GradientColor)" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        async function getAirQualityData() {
+            var cityName = document.getElementById("cityInput").value;
+            var response = await fetch(`/get_aqi?city=${cityName}`);
+            var data = await response.json();
+            if (data.error) {
+                document.getElementById('aqiValue').textContent = data.error;
+            } else {
+                document.getElementById('aqiValue').textContent = `AQI for ${cityName}: ${data.aqi}`;
+                updateProgress(data.aqi);
+            }
+        }
+
+        function updateProgress(aqi) {
+            var circle = document.querySelector('.progress-bar');
+            var circumference = 2 * Math.PI * circle.getAttribute('r');
+            circle.style.strokeDasharray = `${aqi / 300 * circumference} ${circumference}`;
+        }
+    </script>
+</body>
+</html>
+    """
+
+@app.route('/get_aqi')
+def get_aqi():
+    city = request.args.get('city')
+    base_url = 'https://api.waqi.info/feed/'
+    token = 'a5ce4f19eae698a8cd0088d064a2876a218d614c'
+
+    response = requests.get(f'{base_url}/{city}/?token={token}')
+
+    if response.status_code == 200:
+        data = response.json()
+        if 'data' in data and 'aqi' in data['data']:
+            aqi = data['data']['aqi']
+            return jsonify({'aqi': aqi})
+    return jsonify({'error': f'No air quality data found for {city}'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
