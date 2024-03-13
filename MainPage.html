@@ -5,47 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
     <style>
+        .quiz-container {
+            background-color: #3EB489;
+            padding: 8.5px;
+        }
+
+        .quiz {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
 
         body {
-            font-family: 'Roboto', sans-serif; /* Apply Roboto font to the entire document */
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2; /* Lighter background color */
-            width: 100%; 
+            background-color: #f2f2f2;
+            width: 100%;
             height: 100%;
         }
 
         header {
             background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
             background-position: center;
-            background-size: cover; /* Ensures entire image is visible */
+            background-size: cover;
             background-attachment: fixed;
-            /* Keeps the background fixed */
-            opacity: 0.7; /* Reduced opacity for a lighter background */
-            /* Adjust the transparency of the background image */
-            animation: backgroundAnimate 20s linear infinite;
-            /* Faster animation for background movement */
-            padding: 7.18rem 4rem; /* Increased padding to accommodate the whole image */
-            color: #333; /* Darker text color for better visibility */
-            text-align: left; /* Align text to the left */
-            position: relative; /* Ensure relative positioning for child elements */
+            opacity: 0.7;
+            padding: 7.18rem 4rem;
+            color: #333;
+            text-align: left;
+            position: relative;
         }
 
         @keyframes backgroundAnimate {
             0% {
                 background-position: 100% 50%;
-                /* Start from the right */
             }
             100% {
                 background-position: 0% 50%;
-                /* Move to the left */
             }
         }
 
         h1,
         h2 {
-            color: #eecf3f; /* Yellowish color for headings */
+            color: #eecf3f;
             animation: slideInLeft 1s ease-in-out;
         }
 
@@ -64,7 +68,7 @@
             padding: 2rem;
             margin: 0 auto;
             max-width: 800px;
-            color: #333; /* Darker text color for better visibility */
+            color: #333;
         }
 
         footer {
@@ -80,35 +84,76 @@
                 width: 100%;
             }
         }
-        nav > ul {
-			display: inline;
-			padding: auto;
-		}
-        nav >  ul > li {
-			display: inline-block;
-			list-style: none;
-			margin: 0 5px 0 5px
 
-		}
-        nav a:link, a:visited {
-        	color: black;
-            text-decoration: none;
+        .news-box {
+            border: 2px solid #3EB489;
+            padding: 20px;
+            margin-bottom: 20px;
         }
-        nav a:hover, a:active {
-        	color: grey;
+
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .news-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .news-content {
+            font-size: 16px;
+        }
+
+        /* New styles for dynamically fetched news */
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .news-box {
+            width: calc(33.33% - 20px);
+            border: 2px solid #3EB489;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .news-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .news-content {
+            font-size: 16px;
+        }
+
+        .read-more {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #3EB489;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .read-more:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<nav>
-    <ul>
-    <li><h3><a href="quiz.html">Quiz</a></h3></li>
-    <li><h3><a href="aqi.html">Air Quality</a></h3></li>
-    <li><h3><a href="pollution.html">Clean Energy</a></h3></li>
-    </ul>
-</nav>
 <header>
+    <div class="quiz-container">
+        <h3 class="quiz"><a href="quiz.html">Quiz</a></h3>
+    </div>
     <div>
         <strong><h1 style="text-align: left; margin-top: -0.3rem;">SDG-7 Clean Energy</h1></strong>
         <h2 style="text-align: left; margin-top: -0.3rem;">UN SDG</h2>
@@ -116,79 +161,65 @@
     </div>
 </header>
 <main>
-    <h2>List of Clean Energy Sources:</h2>
-    <ul>
-        <li>Solar Energy</li>
-        <li>Wind Energy</li>
-        <li>Hydroelectric Energy</li>
-        <li>Biomass Energy</li>
-        <li>Geothermal Energy</li>
-    </ul>
-    <h2>Detailed Information about Clean Energy Sources:</h2>
-    <p><strong>Solar Energy:</strong> Solar energy is a renewable energy source that is obtained from the sun's radiation. It is harnessed through the use of solar panels, which convert sunlight into electricity. Solar energy is abundant, clean, and sustainable, making it an important contributor to the global energy mix. According to UN - SDG, solar energy increased by X% in the past [time period].</p>
-    <p><strong>Wind Energy:</strong> Wind energy is generated by harnessing the power of wind through wind turbines. As the wind blows, it rotates the blades of the turbines, which in turn generate electricity. Wind energy is clean, abundant, and renewable. According to UN - SDG, wind energy installations have grown by X% globally in the past [time period].</p>
-    <p><strong>Hydroelectric Energy:</strong> Hydroelectric energy is produced by harnessing the energy of flowing water, typically from rivers or dams. Water is directed through turbines, which generate electricity. Hydroelectric energy is one of the oldest and most widely used forms of renewable energy. According to UN - SDG, hydroelectric power increased by X% in the past [time period].</p>
-    <p><strong>Biomass Energy:</strong> Biomass energy is derived from organic materials such as wood, agricultural residues, and municipal solid waste. These materials are burned or converted into biofuels to produce heat or electricity. Biomass energy is considered renewable because the organic materials used can be replenished over time. According to the UN - SDG, biomass energy has grown by X% in the past [time period].</p>
-    <p><strong>Geothermal Energy:</strong> Geothermal energy is produced by harnessing the heat from the Earth's interior. This heat is used to generate electricity or for direct heating applications. Geothermal energy is abundant and reliable, as it is not dependent on external factors such as weather or sunlight. According to UN - SDG, geothermal energy has increased by X% in the past [time period].</p>
-
-    <!-- Add Plotly graph here -->
-    <div id="plotly_chart"></div>
+    <h2>Renewable Energy News:</h2>
+    <div class="news-container" id="news-container">
+        <!-- News articles will be dynamically added here -->
+    </div>
 </main>
 <footer>
     &copy; 2024 Sustainable Cities. All rights reserved
 </footer>
 
-<!-- Plotly.js -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- JavaScript to fetch and display news articles -->
 <script>
-    // Data
-    var years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
-    var total_energy_consumption = [406.3, 414.9, 421.9, 430.7, 437.2, 444.7, 452.7, 460.4, 467.4, 418.0, 414.1, 424.3, 433.9, 443.7];
-    var renewable_energy_consumption = [74.8, 77.9, 81.5, 84.8, 88.4, 92.1, 95.9, 99.8, 104.1, 108.5, 112.4, 117.4, 122.6, 127.9];
+    // Your NewsAPI key
+    const apiKey = '94b4958687e44ec381ee8088a34bf7d3';
 
-    // Create traces
-    var trace1 = {
-        x: years,
-        y: total_energy_consumption,
-        name: 'Total Energy Consumption (EJ)',
-        type: 'bar',
-        marker: {
-            color: 'blue'
-        },
-        hoverinfo: 'y',
-        hovertemplate: '%{y:.2f} EJ'
-    };
+    // Function to fetch news articles from NewsAPI
+    async function fetchNews() {
+        const apiUrl = `https://newsapi.org/v2/everything?q=renewable+energy&apiKey=${apiKey}&pageSize=3`;
 
-    var trace2 = {
-        x: years,
-        y: renewable_energy_consumption,
-        name: 'Renewable Energy Consumption (EJ)',
-        type: 'bar',
-        marker: {
-            color: 'green'
-        },
-        hoverinfo: 'y',
-        hovertemplate: '%{y:.2f} EJ'
-    };
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
 
-    // Create data array
-    var data = [trace1, trace2];
+            // Display news articles on webpage
+            const newsContainer = document.getElementById('news-container');
+            data.articles.forEach((article, index) => {
+                const newsBox = document.createElement('div');
+                newsBox.classList.add('news-box');
 
-    // Create layout
-    var layout = {
-        title: 'Total and Renewable Energy Consumption Over Years',
-        xaxis: {
-            title: 'Year'
-        },
-        yaxis: {
-            title: 'Energy Consumption (EJ)'
-        },
-        barmode: 'group',  // Grouped bar chart
-        hovermode: 'x'  // Show hover information along x-axis
-    };
+                const newsTitle = document.createElement('h3');
+                newsTitle.classList.add('news-title');
+                newsTitle.textContent = article.title;
+                newsBox.appendChild(newsTitle);
 
-    // Plot chart
-    Plotly.newPlot('plotly_chart', data, layout);
+                const newsImage = document.createElement('img');
+                newsImage.classList.add('news-image');
+                newsImage.src = article.urlToImage || 'https://via.placeholder.com/150';
+                newsImage.alt = article.title;
+                newsBox.appendChild(newsImage);
+
+                const newsContent = document.createElement('p');
+                newsContent.classList.add('news-content');
+                newsContent.textContent = article.description;
+                newsBox.appendChild(newsContent);
+
+                const readMore = document.createElement('a');
+                readMore.classList.add('read-more');
+                readMore.href = article.url;
+                readMore.textContent = 'Read More';
+                newsBox.appendChild(readMore);
+
+                newsContainer.appendChild(newsBox);
+            });
+        } catch (error) {
+            console.error('Error fetching news:', error);
+        }
+    }
+
+    // Fetch news articles when the page loads
+    window.onload = fetchNews;
 </script>
 </body>
 </html>
