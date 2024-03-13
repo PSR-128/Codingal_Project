@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
     <style>
+        * {
+            transition: all 0.3s ease-in-out;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .info-container{
+            background-color: rgba(245,245,245,1);
+            padding: 10px;
+            display: inline-block;
+            animation: slideInLeft 1s ease-in-out;
+        }
+        .box-area {
+            background-color: rgba(245,245,245,1);
+            padding: 10px;
+            display: inline-block;
+            animation: slideInLeft 1s ease-in-out;
+        }
+        .quiz-container {
+            background-color: rgba(62, 180, 137, 0.81015);
+            padding: 2px;
+            margin-top: -50px
+        }
+
+        .quiz a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .quiz a:hover {
+            color: #eecf3f;
+        }
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -26,6 +61,7 @@
             color: #333;
             text-align: left;
             position: relative;
+            animation: backgroundAnimate 30s linear infinite;
         }
 
         @keyframes backgroundAnimate {
@@ -39,7 +75,7 @@
 
         h1,
         h2 {
-            color: #eecf3f;
+            color: #2ECC71;
             animation: slideInLeft 1s ease-in-out;
         }
 
@@ -67,11 +103,17 @@
             text-align: center;
             padding: 1rem;
             margin-top: 1.5rem;
+            animation: fadeInBottom 1s ease-in-out;
         }
 
-        @media screen and (max-width: 600px) {
-            main {
-                width: 100%;
+        @keyframes fadeInBottom {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
 
@@ -79,22 +121,25 @@
             border: 2px solid #3EB489;
             padding: 20px;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .news-title {
             font-size: 18px;
             margin-bottom: 10px;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .news-image {
             max-width: 100%;
             height: auto;
             margin-bottom: 10px;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .news-content {
             font-size: 16px;
-        }
+            animation: slideInLeft 1s ease-in-out;}
 
         /* New styles for dynamically fetched news */
         .news-container {
@@ -108,21 +153,25 @@
             border: 2px solid #3EB489;
             padding: 20px;
             margin: 10px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .news-title {
             font-size: 18px;
             margin-bottom: 10px;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .news-image {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .news-content {
             font-size: 16px;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .read-more {
@@ -132,50 +181,33 @@
             color: #3EB489;
             text-decoration: none;
             font-weight: bold;
+            animation: slideInLeft 1s ease-in-out;
         }
 
         .read-more:hover {
             text-decoration: underline;
         }
-        nav > ul {
-		display: inline;
-		padding: auto;
-        text-align: left;
-	    }
-        nav >  ul > li {
-	        display: inline-block;
-		    list-style: none;
-		    margin: 0 5px 0 5px;
-            text-align: left;
-
-	    }
-        nav a:link, a:visited {
-            color: black;
-            text-decoration: none;
-        }
-        nav a:hover, a:active {
-            color: white;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
-<nav>
-    <ul>
-    <li><h3><a href="MainPage.html">Home Page</a></h3></li>
-    <li><h3><a href="quiz.html">Quiz</a></h3></li>
-    <li><h3><a href="aqi.html">Air Quality</a></h3></li>
-    </ul>
-</nav>
 <header>
-    <div>
-        <strong><h1 style="text-align: left; margin-top: -0.3rem;">SDG-7 Clean Energy</h1></strong>
-        <h2 style="text-align: left; margin-top: -0.3rem;">UN SDG</h2>
-        <p>The UN SDG(United Nations Sustainable Development Goals) are 17 sustainable goals towards the betterment of social life and environment. And the primary way in doing so is <b>through clean energy</b></p>
+    <div class="quiz-container">
+        <h3 class="quiz"><a href="quiz.html">Quiz</a></h3>
+    </div>
+    <div class="box-area"> <!-- Wrap the heading in a div with the "box-area" class -->
+        <strong>
+            <h1 style="text-align: left; margin-top: -0.3rem;">SDG-7 Clean Energy</h1>
+        </strong>
+        <div>
+            <h2 style="text-align: left; margin-top: -20px;">UN SDG <img src="https://storage.googleapis.com/swayam-node1-production.appspot.com/assets/img/noc23_ce01/SDG_Logo.jpg" alt="SDG Logo" class="logo"></h2>
+        </div>
+    </div>
+    <div class="info-container">
+        <p>The UN SDG (United Nations Sustainable Development Goals) are 17 sustainable goals towards the betterment of social life and environment. And the primary way in doing so is <b>through clean energy</b></p>
     </div>
 </header>
 <main>
-    <h2>Renewable Energy News:</h2>
+    <h2>Latest News On Clean Energy:</h2>
     <div class="news-container" id="news-container">
         <!-- News articles will be dynamically added here -->
     </div>
