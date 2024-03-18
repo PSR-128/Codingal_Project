@@ -1,5 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import requests
+import plotly.graph_objs as go
+import random
 
 app = Flask(__name__)
 
@@ -13,69 +15,103 @@ def index():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Air Quality Index Checker</title>
     <style>
+        /* CSS styles for the background and theme */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #00b894, #00cec9);
             margin: 0;
             padding: 0;
+            overflow-x: hidden; /* Prevent horizontal overflow */
         }
         .container {
-            max-width: 800px;
-            margin: 20px auto;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
-            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px;
         }
         h1 {
-            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
         }
         #cityInput {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease-in-out;
         }
-        #aqiContainer {
-            width: 200px;
-            height: 200px;
+        #cityInput:focus {
+            border-color: #00b894;
+            outline: none;
+        }
+        .link-button {
+            padding: 10px 20px;
+            background-color: #00b894;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin-right: 10px;
+        }
+        .link-button:hover {
+            background-color: #00cec9;
+        }
+        /* CSS styles for the progress bar */
+        .progress-container {
             position: relative;
-            overflow: hidden;
-            border-radius: 50%;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            width: 200px; /* Adjust as needed */
+            height: 200px; /* Adjust as needed */
             margin: 0 auto;
         }
-        .progress-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            stroke-width: 20px;
-            stroke-dasharray: 472;
-            stroke-dashoffset: 472;
-            animation: progress 2s linear forwards;
-            transform-origin: center;
-            transform: rotate(270deg);
-        }
-
-        .inner-circle {
+        .progress-value {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            height: 70%;
-            border-radius: 50%;
-            background-color: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            transform: translate(-50%, -50%) rotateX(10deg);
+            font-size: 1.5rem; /* Adjust as needed */
+            transition: transform 0.3s ease-in-out;
         }
-
-        @keyframes progress {
-            100% {
-                stroke-dashoffset: 0;
+        .progress-bar {
+            transform: rotate(-90deg) translateZ(1px);
+            transform-origin: center;
+            filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+            animation: progress-animation 3s linear infinite;
+        }
+        /* CSS gradient colors for the progress bar */
+        #progressCircle {
+            stroke: url(#gradient);
+            transition: stroke-dasharray 0.3s ease-in-out;
+        }
+        /* Adding 3D effects and animations */
+        @keyframes progress-animation {
+            0% {
+                transform: rotate(-90deg) translateZ(1px);
             }
+            100% {
+                transform: rotate(-90deg) translateZ(0);
+            }
+        }
+        /* CSS styles for the graph */
+        #graph-container {
+            margin: 20px auto;
+            width: 80%;
+            min-height: 500px; /* Adjust as needed */
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .graph-title {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #666;
         }
     </style>
 </head>
@@ -84,44 +120,108 @@ def index():
         <h1>Air Quality Index Checker</h1>
         <input type="text" id="cityInput" placeholder="Enter city name">
         <button onclick="getAirQualityData()" class="link-button">Get Air Quality Data</button>
-        <div id="aqiContainer">
-            <div class="inner-circle"></div>
-            <svg viewBox="0 0 100 100" class="progress-bar">
+        <div id="aqiContainer" class="progress-container">
+            <div class="progress-value"></div>
+            <!-- Circular Progress Bar -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="progress-bar">
+                <!-- Define the gradient -->
                 <defs>
-                    <linearGradient id="GradientColor">
-                        <stop offset="0%" stop-color="#ccffcc" />
-                        <stop offset="25%" stop-color="#99ff99" />
-                        <stop offset="50%" stop-color="#66ff66" />
-                        <stop offset="75%" stop-color="#33cc33" />
-                        <stop offset="100%" stop-color="#00b300" />
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color: green;" />
+                        <stop offset="20%" style="stop-color: green;" />
+                        <stop offset="30%" style="stop-color: yellow;" />
+                        <stop offset="40%" style="stop-color: yellow;" />
+                        <stop offset="50%" style="stop-color: orange;" />
+                        <stop offset="60%" style="stop-color: orange;" />
+                        <stop offset="70%" style="stop-color: red;" />
+                        <stop offset="100%" style="stop-color: red;" />
                     </linearGradient>
                 </defs>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="url(#GradientColor)" />
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#ccc" stroke-width="10" />
+                <circle id="progressCircle" cx="50" cy="50" r="40" fill="none" stroke-width="10" stroke-dasharray="0 251.2">
+                    <!-- No initial animation -->
+                </circle>
             </svg>
+            <!-- End of Circular Progress Bar -->
+        </div>
+        <div>
+            <button onclick="getHistoricalData(5)" class="link-button">Past 5 Years</button>
+            <button onclick="getHistoricalData(10)" class="link-button">Past 10 Years</button>
+            <button onclick="getHistoricalData(15)" class="link-button">Past 15 Years</button>
+            <button onclick="getHistoricalData(20)" class="link-button">Past 20 Years</button>
+            <button onclick="getHistoricalData(25)" class="link-button">Past 25 Years</button>
+            <button onclick="getHistoricalData(30)" class="link-button">Past 30 Years</button>
+            <button onclick="getHistoricalData(40)" class="link-button">Past 40 Years</button>
+            <button onclick="getHistoricalData(50)" class="link-button">Past 50 Years</button>
         </div>
     </div>
 
+    <div id="graph-container"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-        async function getAirQualityData() {
+        function getAirQualityData() {
             var cityName = document.getElementById("cityInput").value;
-            var response = await fetch(`/get_aqi?city=${cityName}`);
-            var data = await response.json();
-            if (data.error) {
-                document.getElementById('aqiValue').textContent = data.error;
-            } else {
-                document.getElementById('aqiValue').textContent = `AQI for ${cityName}: ${data.aqi}`;
-                updateProgress(data.aqi);
-            }
+            fetch(`/get_aqi?city=${cityName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.querySelector('.progress-value').textContent = data.error;
+                    } else {
+                        var aqi = data.data.aqi;
+                        document.querySelector('.progress-value').innerHTML = `<strong>${aqi}</strong>`;
+                        var progressCircle = document.getElementById('progressCircle');
+                        var circumference = Math.PI * 2 * 40; // Circumference of the circle (radius = 40)
+                        var dashOffset = circumference - (aqi / 300) * circumference; // Calculate stroke-dashoffset
+                        progressCircle.setAttribute('stroke-dasharray', `${dashOffset} ${circumference}`);
+                        // Adding a slight delay to the animation
+                        setTimeout(() => {
+                            progressCircle.style.transition = 'stroke-dasharray 0.3s ease-in-out';
+                        }, 100);
+                        setTimeout(() => {
+                            document.querySelector('.progress-value').style.transform = 'translate(-50%, -50%) rotateX(0deg)';
+                            document.querySelector('.progress-bar').style.transform = 'rotate(-90deg) translateZ(0)';
+                        }, 150);
+                        // Get default historical data for the past 10 years
+                        getHistoricalData(10);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
 
-        function updateProgress(aqi) {
-            var circle = document.querySelector('.progress-bar');
-            var circumference = 2 * Math.PI * circle.getAttribute('r');
-            circle.style.strokeDasharray = `${aqi / 300 * circumference} ${circumference}`;
+        function getHistoricalData(years) {
+            var cityName = document.getElementById("cityInput").value;
+            fetch(`/get_aqi_history?city=${cityName}&years=${years}`)
+                .then(response => response.json())
+                .then(data => {
+                    var years = data.years;
+                    var aqiValues = data.aqi_values;
+                    var trace = {
+                        x: years,
+                        y: aqiValues,
+                        mode: 'lines+markers',
+                        marker: { 
+                            color: 'rgba(0, 0, 255, 0.5)', // Adjust opacity here (0.5)
+                            line: { 
+                                width: 2,
+                                color: 'rgba(0, 0, 255, 0.1)' // Adjust opacity here (0.5)
+                            }
+                        }
+                    };
+                    var layout = {
+                        title: `Historical AQI Data for the Past ${years} Years`,
+                        xaxis: { title: 'Year' },
+                        yaxis: { title: 'AQI Value' }
+                    };
+                    Plotly.newPlot('graph-container', [trace], layout);
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
 </html>
+
+
     """
 
 @app.route('/get_aqi')
@@ -136,9 +236,16 @@ def get_aqi():
         data = response.json()
         if 'data' in data and 'aqi' in data['data']:
             aqi = data['data']['aqi']
-            return jsonify({'aqi': aqi})
+            return jsonify({'data': {'aqi': aqi}})
     return jsonify({'error': f'No air quality data found for {city}'})
+
+@app.route('/get_aqi_history')
+def get_aqi_history():
+    city = request.args.get('city')
+    # Generating random data for demonstration
+    years = list(range(2012, 2023))
+    aqi_values = [random.randint(0, 300) for _ in range(10)]
+    return jsonify({'years': years, 'aqi_values': aqi_values})
 
 if __name__ == '__main__':
     app.run(debug=True)
-
