@@ -19,24 +19,31 @@
         }
 
         .link-container {
-            background-color: #3EB489;
-            padding: 5px 20px; /* Adjusted padding */
-            text-align: right;
+            display: flex;
+            justify-content: flex-end; /* Align links to the right */
+            margin-top: 15px;
+            margin-right: 20px; /* Add margin on the right side */
         }
 
-        .link {
-            color: #fff;
+
+        .link-container a {
             text-decoration: none;
-            font-weight: bold;
-            margin-left: 10px; /* Add margin to create space between links */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 10px;
+
+            transition: background-color 0.3s ease;
         }
+
+        .link-container a:hover {
+            background-color: #00cec9;
+        }
+
 
 
         header {
-            background-color: #3EB489;
-            text-align: center;
-            color: #fff;
-            font-size: 15% <!-- this chnages the header size -->
+
         }
 
         #quiz {
@@ -147,8 +154,11 @@
 </head>
 <body>
     <div class="link-container">
-        <h3><a href="home.html" class="link">Home</a><a href="aqi.html" class="link">Air Quality</a><a href="clean_energy.html" class="link">Clean Energy</a></h3>
+        <b><a href="home.html" class="link">Home</a>
+        <a href="aqi.html" class="link">Air Quality</a>
+        <a href="clean_energy.html" class="link">Clean Energy</a></b>
     </div>
+
     <header>
         <h1>Daily Clean Energy Quiz</h1>
     </header>
