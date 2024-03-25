@@ -30,5 +30,9 @@ def quiz_page():
 def aqi_page():
     return render_template('aqi.html')  # Renders quiz.html
 
+@app.route('/clean_energy.html')
+def clean_energy_page():
+    return render_template('clean_energy.html')  # Renders quiz.html
+
 if __name__ == '__main__':
     app.run(debug=True)
