@@ -9,7 +9,7 @@ def index():
 
 @app.route('/get_aqi')
 def get_aqi():
-    city = request.args.get('city')  # Changed 'requests' to 'request'
+    city = request.args.get('city')
     response = requests.get(f'https://api.waqi.info/feed/{city}/?token=a5ce4f19eae698a8cd0088d064a2876a218d614c')
     data = response.json()
     if 'data' in data and 'aqi' in data['data']:
