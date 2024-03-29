@@ -3,28 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Quality Index Checker</title>
+    <title>Clean Energy Air Quality Checker</title>
     <style>
-        /* CSS styles for the background and theme */
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #00b894, #00cec9);
+            background: linear-gradient(to right, #7effb6, #56ab2f);
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            overflow-x: hidden;
         }
+        .link-container {
+            color: #7effb6; /* Changed link text color */
+            font-size: 20px;
+            text-transform: uppercase;
+            padding: 2px 12px;
+            background-color: #0d6c34; /* Changed background color */
+            border-radius: 20px 20px 0px 0px; /* Rounded border */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow */
+
+            max-height:100px;
+            justify-content: space-around; /* Evenly space the links */
+        }
+
+.link-container a {
+    text-decoration: none;
+    color: #fff; /* Changed link text color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition */
+}
+
+.link-container a:hover {
+    background-color: #6a1fc2; /* Darker background color on hover */
+    transform: translateY(-3px); /* Move the link slightly upwards on hover */
+}
+
+
         .container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin: 20px;
+            margin: 20px auto;
+            position: relative;
         }
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+
         #cityInput {
             width: 100%;
             padding: 10px;
@@ -34,58 +56,90 @@
             border-radius: 5px;
             transition: border-color 0.3s ease-in-out;
         }
+
         #cityInput:focus {
-            border-color: #00b894;
+            border-color: #56ab2f;
             outline: none;
         }
-        .link-container {
+
+        .header-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            align-items: center;
         }
-        .link-container a {
-            text-decoration: none;
+
+
+        .link-button {
+            background-color: #7d2ae8; /* Purple background */
+            border: none;
             color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin: 0 10px;
-            background-color: #00b894;
-            transition: background-color 0.3s ease;
+            padding: 15px 30px;
+            border-radius: 50px; /* Rounded border */
+            font-size: 18px; /* Increase font size */
+            font-weight: bold; /* Bold text */
+            text-transform: uppercase; /* Uppercase text */
+            letter-spacing: 1px; /* Spacing between letters */
+            cursor: pointer; /* Change cursor to pointer */
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
         }
-        .link-container a:hover {
-            background-color: #00cec9;
+
+        .link-button:hover {
+            background-color: #6a1fc2; /* Darker purple on hover */
         }
-        /* CSS styles for the progress bar */
-        .progress-circle {
-            margin: 20px auto;
-            width: 120px;
-            height: 120px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        .circular-progress {
             position: relative;
-        }
-        .progress-bar {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: conic-gradient(#00b894, #00cec9);
+            height: 250px;
+            width: 250px;
             border-radius: 50%;
-            clip: rect(0px, 120px, 120px, 60px); /* Clip half of the circle */
+            background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
         }
-        .progress-text {
+
+        .circular-progress::before {
+            content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
+            height: 210px;
+            width: 210px;
+            border-radius: 50%;
+            background-color: #fff;
         }
+
+        .progress-value {
+            position: relative;
+            font-size: 40px;
+            font-weight: 600;
+            color: #7d2ae8;
+        }
+
+        .text {
+            font-size: 30px;
+            font-weight: 500;
+            color: #606060;
+        }
+
+        .header {
+            color: #7effb6;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 2px 12px;
+            background-color: #333333;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 150px;
+
+        }
+
     </style>
 </head>
 <body>
-    <header>
+    <header class="header-container">
+        <div class="header">Air Quality</div>
         <div class="link-container">
             <a href="home.html">Home</a>
             <a href="quiz.html">Quiz</a>
@@ -95,10 +149,11 @@
     <div class="container">
         <input type="text" id="cityInput" placeholder="Enter city name">
         <button onclick="getAirQualityData()" class="link-button">Get Air Quality Data</button>
-        <div class="progress-circle" id="progressCircle">
-            <div class="progress-bar" id="progressBar"></div>
-            <div class="progress-text" id="progressText"></div>
+        <!-- Circular progress bar -->
+        <div class="circular-progress" id="progressCircle">
+            <span class="progress-value" id="progressText"></span>
         </div>
+        <span class="text">Air Quality Index</span>
     </div>
 
     <script>
@@ -108,13 +163,17 @@
                 .then(response => response.json())
                 .then(data => {
                     var aqi = data.aqi;
-                    var progress = aqi / 500;  // Calculate progress percentage
-                    var progressBar = document.getElementById("progressBar");
                     var progressText = document.getElementById("progressText");
-                    progressBar.style.transform = `rotate(${progress * 360}deg)`;  // Rotate the progress bar
-                    progressText.innerText = aqi;  // Display AQI value
+                    progressText.innerText = aqi;
+                    animateProgressBar(aqi);
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function animateProgressBar(aqi) {
+            var progressBar = document.getElementById("progressCircle");
+            var progressValue = (aqi / 500) * 360;
+            progressBar.style.background = `conic-gradient(#7d2ae8 ${progressValue}deg, #ededed 0deg)`;
         }
     </script>
 </body>
