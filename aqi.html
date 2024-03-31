@@ -5,61 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clean Energy Air Quality Checker</title>
     <style>
+        /* Default color scheme */
+        :root {
+            --background-color: #1a1a1a;
+            --text-color: #333;
+            --accent-color: #7d2ae8;
+            --button-hover-color: #6a1fc2;
+            --header-background: #333333;
+            --link-color: #7effb6;
+            --link-hover-color: #333333; /* Changed link hover color */
+            --input-border-color: #ccc;
+            --input-placeholder-color: #ccc;
+            --input-focus-border-color: #56ab2f;
+            --input-label-color: #ccc;
+            --input-label-focus-color: #999;
+            --circular-progress-background: #ededed;
+            --progress-value-color: #7d2ae8;
+            --inner-textbox-color: #3CB371; /* New color for textbox */
+            --inner-circular-progress-color: #3CB371; /* New color for circular progress bar */
+        }
+
+        /* Common styles */
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #7effb6, #56ab2f);
+            background: linear-gradient(45deg, #003366, #00cccc);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-        }
-        .link-container {
-            color: #7effb6; /* Changed link text color */
-            font-size: 20px;
-            text-transform: uppercase;
-            padding: 2px 12px;
-            background-color: #0d6c34; /* Changed background color */
-            border-radius: 20px 20px 0px 0px; /* Rounded border */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow */
-
-            max-height:100px;
-            justify-content: space-around; /* Evenly space the links */
-        }
-
-.link-container a {
-    text-decoration: none;
-    color: #fff; /* Changed link text color */
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 0 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition */
-}
-
-.link-container a:hover {
-    background-color: #6a1fc2; /* Darker background color on hover */
-    transform: translateY(-3px); /* Move the link slightly upwards on hover */
-}
-
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        #cityInput {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s ease-in-out;
-        }
-
-        #cityInput:focus {
-            border-color: #56ab2f;
-            outline: none;
         }
 
         .header-container {
@@ -68,24 +41,106 @@
             align-items: center;
         }
 
-
-        .link-button {
-            background-color: #7d2ae8; /* Purple background */
-            border: none;
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 50px; /* Rounded border */
-            font-size: 18px; /* Increase font size */
-            font-weight: bold; /* Bold text */
-            text-transform: uppercase; /* Uppercase text */
-            letter-spacing: 1px; /* Spacing between letters */
-            cursor: pointer; /* Change cursor to pointer */
-            transition: background-color 0.3s ease; /* Smooth hover transition */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+        .header {
+            color: var(--link-color);
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 2px 12px;
+            background-color: var(--header-background);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 150px;
         }
 
-        .link-button:hover {
-            background-color: #6a1fc2; /* Darker purple on hover */
+        .link-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            text-transform: uppercase;
+            padding: 2px 12px;
+            background-color: var(--accent-color);
+            border-radius: 20px 20px 0px 0px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-height: 100px;
+        }
+
+        .link-container a {
+            text-decoration: none;
+            color: var(--link-color);
+            padding: 2px 12px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .link-container a:hover {
+            background-color: var(--link-hover-color);
+            transform: translateY(-3px);
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .input-text {
+            width: 300px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid var(--input-border-color);
+            border-radius: 5px;
+            transition: border-color 0.3s ease-in-out;
+            margin-right: 10px;
+            position: relative;
+            background-color: var(--inner-textbox-color); /* Updated color for textbox */
+            color: var(--text-color);
+        }
+
+        .input-text:focus {
+            border-color: var(--input-focus-border-color);
+            outline: none;
+        }
+
+        .input-label {
+            position: absolute;
+            top: 50%;
+            left: 10px; /* Adjusted left position */
+            transform: translateY(-50%);
+            color: var(--input-label-color);
+            pointer-events: none;
+            transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .input-text:focus + .input-label,
+        .input-text:not(:placeholder-shown) + .input-label {
+            top: 0;
+            left: 10px; /* Adjusted left position */
+            font-size: 12px;
+            color: var(--input-label-focus-color);
+        }
+
+        .submit-button {
+            background-color: var(--accent-color);
+            border: none;
+            color: var(--text-color);
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button:hover {
+            background-color: var(--button-hover-color);
         }
 
         .circular-progress {
@@ -93,11 +148,12 @@
             height: 250px;
             width: 250px;
             border-radius: 50%;
-            background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+            background: conic-gradient(var(--accent-color) 3.6deg, var(--inner-circular-progress-color) 0deg); /* Updated inner color for circular progress bar */
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+            margin-top: 50px;
         }
 
         .circular-progress::before {
@@ -106,56 +162,40 @@
             height: 210px;
             width: 210px;
             border-radius: 50%;
-            background-color: #fff;
+            background-color: var(--background-color);
         }
 
         .progress-value {
             position: relative;
             font-size: 40px;
             font-weight: 600;
-            color: #7d2ae8;
+            color: var(--progress-value-color);
         }
+        $seedling-size: 20px; // Adjust as needed
 
-        .text {
-            font-size: 30px;
-            font-weight: 500;
-            color: #606060;
+        .progress-container {
+            position: relative;
+            width: 300px; // Adjust as needed
+            height: 300px; // Adjust as needed
         }
-
-        .header {
-            color: #7effb6;
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 2px 12px;
-            background-color: #333333;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 150px;
-
-        }
-
     </style>
 </head>
 <body>
     <header class="header-container">
         <div class="header">Air Quality</div>
         <div class="link-container">
-            <a href="MainPage.html">Home</a>
+            <a href="home.html">Home</a>
             <a href="quiz.html">Quiz</a>
             <a href="clean_energy.html">Clean Energy</a>
         </div>
     </header>
-    <div class="container">
-        <input type="text" id="cityInput" placeholder="Enter city name">
-        <button onclick="getAirQualityData()" class="link-button">Get Air Quality Data</button>
-        <!-- Circular progress bar -->
-        <div class="circular-progress" id="progressCircle">
-            <span class="progress-value" id="progressText"></span>
-        </div>
-        <span class="text">Air Quality Index</span>
+    <div class="input-container">
+        <input type="text" id="cityInput" class="input-text" placeholder="Enter city name">
+        <button onclick="getAirQualityData()" class="submit-button">Get AQI</button>
     </div>
-
+    <div class="circular-progress" id="progressCircle">
+        <span class="progress-value" id="progressText"></span>
+    </div>
     <script>
         function getAirQualityData() {
             var cityName = document.getElementById("cityInput").value;
