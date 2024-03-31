@@ -6,206 +6,175 @@
     <title>Sustainable Cities</title>
     <style>
         * {
-    transition: all 0.3s ease-in-out;
-}
-
-.logo {
-    width: 150px;
-    height: auto;
-    margin-left: 10px;
-}
-
-.info-container {
-    background-color: rgba(245, 245, 245, 1);
-    padding: 10px;
-    display: inline-block;
-    animation: slideInLeft 1s ease-in-out;
-}
-
-.box-area {
-    background-color: rgba(245, 245, 245, 1);
-    padding: 10px;
-    display: inline-block;
-    animation: slideInLeft 1s ease-in-out;
-}
-
-.quiz-container {
-    background-color: rgba(62, 180, 137, 0.81015);
-    padding: 2px;
-    margin-top: -50px;
-    display: flex; /* Adjusted: Display flex to make children align horizontally */
-}
-
-.quiz {
-    margin-right: 20px; /* Optional: Add space between the links */
-}
-
-.quiz a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
-}
-
-.quiz a:hover {
-    color: #eecf3f;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
-    width: 100%;
-    height: 100%;
-}
-
-header {
-    background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-    opacity: 0.7;
-    padding: 7.18rem 4rem;
-    color: #333;
-    text-align: left;
-    position: relative;
-    animation: backgroundAnimate 30s linear infinite;
-}
-
-@keyframes backgroundAnimate {
-    0% {
-        background-position: 100% 50%;
+        transition: all 0.3s ease-in-out;
     }
-    100% {
-        background-position: 0% 50%;
+
+    .logo {
+        width: 150px;
+        height: auto;
+        margin-left: 10px;
     }
-}
 
-h1,
-h2 {
-    color: #2ECC71;
-    animation: slideInLeft 1s ease-in-out;
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
+    .info-container {
+        background-color: rgba(245, 245, 245, 1);
+        padding: 10px;
+        display: inline-block;
+        animation: slideInLeft 1s ease-in-out;
     }
-    to {
-        transform: translateX(0);
-        opacity: 1;
+
+    .box-area {
+        background-color: rgba(245, 245, 245, 1);
+        padding: 10px;
+        display: inline-block;
+        animation: slideInLeft 1s ease-in-out;
     }
-}
 
-main {
-    padding: 2rem;
-    margin: 0 auto;
-    max-width: 800px;
-    color: #333;
-}
-
-footer {
-    background-color: #5ba827;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 1.5rem;
-    animation: fadeInBottom 1s ease-in-out;
-}
-
-@keyframes fadeInBottom {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
+    .quiz-container {
+        background-color: rgba(62, 180, 137, 0.81015);
+        padding: 2px;
+        margin-top: -50px;
+        display: flex;
     }
-    to {
-        transform: translateY(0);
-        opacity: 1;
+
+    .quiz {
+        margin-right: 20px;
     }
-}
 
-.news-box {
-    border: 2px solid #3EB489;
-    padding: 20px;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
+    .quiz a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
 
-.news-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    .quiz a:hover {
+        color: #eecf3f;
+    }
 
-.news-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    body {
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        width: 100%;
+        height: 100%;
+    }
 
-.news-content {
-    font-size: 16px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    header {
+        background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        opacity: 0.7;
+        padding: 7.18rem 4rem;
+        color: #333;
+        text-align: left;
+        position: relative;
+        animation: backgroundAnimate 30s linear infinite;
+    }
 
-/* New styles for dynamically fetched news */
-.news-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+    @keyframes backgroundAnimate {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-.news-box {
-    width: calc(33.33% - 20px);
-    border: 2px solid #3EB489;
-    padding: 20px;
-    margin: 10px;
-    animation: fadeIn 1s ease-in-out;
-}
+    h1,h2 {
+        color: #2ECC71;
+        animation: slideInLeft 1s ease-in-out;
+    }
 
-.news-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
 
-.news-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    main {
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 800px;
+        color: #333;
+    }
 
-.news-content {
-    font-size: 16px;
-    animation: slideInLeft 1s ease-in-out;
-}
+    footer {
+        background-color: #5ba827;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        animation: fadeInBottom 1s ease-in-out;
+    }
 
-.read-more {
-    display: block;
-    margin-top: 10px;
-    text-align: center;
-    color: #3EB489;
-    text-decoration: none;
-    font-weight: bold;
-    animation: slideInLeft 1s ease-in-out;
-}
+    @keyframes fadeInBottom {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
 
-.read-more:hover {
-    text-decoration: underline;
-}
+    .news-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .news-box {
+        width: calc(25% - 20px);
+        height: auto; /* Adjusted to fit varying image heights */
+        border: 2px solid #3EB489;
+        padding: 20px;
+        margin: 10px;
+        animation: fadeIn 1s ease-in-out;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        animation: slideInLeft 1s ease-in-out;
+        overflow: hidden;
+        height: 60px;
+    }
+
+    .news-image {
+        width: 100%; /* Ensures image fits within its container */
+        height: auto; /* Allows image to maintain its aspect ratio */
+        object-fit: cover; /* Adjusts how the image is resized */
+        margin-bottom: 10px;
+        animation: slideInLeft 1s ease-in-out;
+    }
+
+    .news-content {
+        display: none;
+    }
+
+    .read-more {
+        display: none;
+    }
 
     </style>
 </head>
 <body>
 <header>
     <div class="quiz-container">
-        <h3 class="quiz"><a href="pollution.html">Clean Energy</a></h3><h3 class="quiz"><a href="quiz.html">Quiz</a><h3 class="quiz"><a href="aqi.html">Air Quality Checker</a></h3>
+        <h3 class="quiz"><a href="quiz.html">Quiz</a></h3><h3 class="quiz"><a href="clean_energy.html">Clean Energy</a></h3><h3 class="quiz"><a href="aqi.html">Air Quality Checker</a></h3>
     </div>
-    <div class="box-area"> <!-- Wrap the heading in a div with the "box-area" class -->
+    <div class="box-area">
         <strong>
             <h1 style="text-align: left; margin-top: -0.3rem;">SDG-7 Clean Energy</h1>
         </strong>
@@ -227,20 +196,16 @@ footer {
     &copy; 2024 Sustainable Cities. All rights reserved
 </footer>
 
-<!-- JavaScript to fetch and display news articles -->
 <script>
-    // Your NewsAPI key
     const apiKey = '94b4958687e44ec381ee8088a34bf7d3';
 
-    // Function to fetch news articles from NewsAPI
     async function fetchNews() {
-        const apiUrl = `https://newsapi.org/v2/everything?q=renewable+energy&apiKey=${apiKey}&pageSize=3`;
+        const apiUrl = `https://newsapi.org/v2/everything?q=renewable+energy&apiKey=${apiKey}&pageSize=12`;
 
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            // Display news articles on webpage
             const newsContainer = document.getElementById('news-container');
             data.articles.forEach((article, index) => {
                 const newsBox = document.createElement('div');
@@ -257,17 +222,6 @@ footer {
                 newsImage.alt = article.title;
                 newsBox.appendChild(newsImage);
 
-                const newsContent = document.createElement('p');
-                newsContent.classList.add('news-content');
-                newsContent.textContent = article.description;
-                newsBox.appendChild(newsContent);
-
-                const readMore = document.createElement('a');
-                readMore.classList.add('read-more');
-                readMore.href = article.url;
-                readMore.textContent = 'Read More';
-                newsBox.appendChild(readMore);
-
                 newsContainer.appendChild(newsBox);
             });
         } catch (error) {
@@ -275,8 +229,8 @@ footer {
         }
     }
 
-    // Fetch news articles when the page loads
     window.onload = fetchNews;
 </script>
 </body>
 </html>
+
