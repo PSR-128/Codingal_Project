@@ -5,179 +5,219 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clean Energy Air Quality Checker</title>
     <style>
-        /* Default color scheme */
-        :root {
-            --background-color: #1a1a1a;
-            --text-color: #333;
-            --accent-color: #7d2ae8;
-            --button-hover-color: #6a1fc2;
-            --header-background: #333333;
-            --link-color: #7effb6;
-            --link-hover-color: #333333; /* Changed link hover color */
-            --input-border-color: #ccc;
-            --input-placeholder-color: #ccc;
-            --input-focus-border-color: #56ab2f;
-            --input-label-color: #ccc;
-            --input-label-focus-color: #999;
-            --circular-progress-background: #ededed;
-            --progress-value-color: #7d2ae8;
-            --inner-textbox-color: #3CB371; /* New color for textbox */
-            --inner-circular-progress-color: #3CB371; /* New color for circular progress bar */
-        }
+    :root {
+        --background-color: #007bff;
+        --text-color: #333;
+        --accent-color: #ffd700;
+        --button-hover-color: #6a1fc2;
+        --header-background: #333333;
+        --link-color: #7effb6;
+        --link-hover-color: #333333;
+        --input-border-color: #ccc;
+        --input-placeholder-color: #ccc;
+        --input-focus-border-color: #56ab2f;
+        --input-label-color: #ccc;
+        --input-label-focus-color: #999;
+        --progress-value-color: #00FF00;
+        --inner-textbox-color: #3CB371;
+        --inner-circular-progress-color: #3CB371;
+    }
 
-        /* Common styles */
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #003366, #00cccc);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background:#333333;           //background: linear-gradient(45deg, #003366, #00cccc);
+        color: var(--text-color);
 
-        .header-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    }
 
-        .header {
-            color: var(--link-color);
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 2px 12px;
-            background-color: var(--header-background);
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 150px;
-        }
+    .header {
+        color: var(--link-color);
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 2px 12px;
+        background-color: var(--header-background);
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 150px;
+        margin-right: auto;
+    }
 
-        .link-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            text-transform: uppercase;
-            padding: 2px 12px;
-            background-color: var(--accent-color);
-            border-radius: 20px 20px 0px 0px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-height: 100px;
-        }
+    .link-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 16px 10px;
+        /* Removed background-color */
+        border-radius: 0 0 0 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-height: 50px;
+    }
 
-        .link-container a {
-            text-decoration: none;
-            color: var(--link-color);
-            padding: 2px 12px;
-            border-radius: 5px;
-            margin: 0 10px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+    .link-container a {
+        text-decoration: none;
+        color: var(--link-color);
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin: 0 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-        .link-container a:hover {
-            background-color: var(--link-hover-color);
-            transform: translateY(-3px);
-        }
+    .link-container a:hover {
 
-        .input-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
+        transform: translateY(-2px);
+    }
 
-        .input-text {
-            width: 300px;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 2px solid var(--input-border-color);
-            border-radius: 5px;
-            transition: border-color 0.3s ease-in-out;
-            margin-right: 10px;
-            position: relative;
-            background-color: var(--inner-textbox-color); /* Updated color for textbox */
-            color: var(--text-color);
-        }
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-top: 50px;
+        margin-right: 20px;
+        padding: 0 20px; /* Added padding */
+    }
 
-        .input-text:focus {
-            border-color: var(--input-focus-border-color);
-            outline: none;
-        }
+    .input-text:focus {
+        border-color: var(--input-focus-border-color);
+        outline: none;
+    }
 
-        .input-label {
-            position: absolute;
-            top: 50%;
-            left: 10px; /* Adjusted left position */
-            transform: translateY(-50%);
-            color: var(--input-label-color);
-            pointer-events: none;
-            transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
-            font-size: 16px;
-        }
+    .input-label {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        color: var(--input-label-color);
+        pointer-events: none;
+        transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+        font-size: 16px;
+    }
 
-        .input-text:focus + .input-label,
-        .input-text:not(:placeholder-shown) + .input-label {
-            top: 0;
-            left: 10px; /* Adjusted left position */
-            font-size: 12px;
-            color: var(--input-label-focus-color);
-        }
+    .input-text:focus + .input-label,
+    .input-text:not(:placeholder-shown) + .input-label {
+        top: 0;
+        left: 10px;
+        font-size: 12px;
+        color: var(--input-label-focus-color);
+    }
 
-        .submit-button {
-            background-color: var(--accent-color);
-            border: none;
-            color: var(--text-color);
-            padding: 2px 12px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .submit-button {
+        background-color: var(--accent-color);
+        border: none;
+        color: var(--text-color);
+        padding: 10px 20px; /* Added padding */
+        border-radius: 10px; /* Added border radius */
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 10px; /* Adjusted margin */
+    }
 
-        .submit-button:hover {
-            background-color: var(--button-hover-color);
-        }
+    .submit-button:hover {
+        background-color: var(--button-hover-color);
+    }
 
-        .circular-progress {
-            position: relative;
-            height: 250px;
-            width: 250px;
-            border-radius: 50%;
-            background: conic-gradient(var(--accent-color) 3.6deg, var(--inner-circular-progress-color) 0deg); /* Updated inner color for circular progress bar */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            margin-top: 50px;
-        }
+    .circular-progress {
+        position: relative;
+        height: 300px;
+        width: 300px;
+        border-radius: 50%;
+        background: conic-gradient(var(--accent-color) 3.6deg, var(--inner-circular-progress-color) 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        margin-left: 20px;
+        animation: progressAnimation 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards; /* Apply animation with cubic-bezier easing */
+    }
 
-        .circular-progress::before {
-            content: "";
-            position: absolute;
-            height: 210px;
-            width: 210px;
-            border-radius: 50%;
-            background-color: var(--background-color);
+    @keyframes progressAnimation {
+        from {
+            background: conic-gradient(var(--accent-color) 0deg, var(--inner-circular-progress-color) 0deg);
         }
+        to {
+            background: conic-gradient(var(--accent-color) 360deg, var(--inner-circular-progress-color) 0deg);
+        }
+    }
 
-        .progress-value {
-            position: relative;
-            font-size: 40px;
-            font-weight: 600;
-            color: var(--progress-value-color);
-        }
-        $seedling-size: 20px; // Adjust as needed
+    .circular-progress::before {
+        content: "";
+        position: absolute;
+        height: 250px;
+        width: 250px;
+        border-radius: 50%;
+        background-color: var(--background-color);
+    }
 
-        .progress-container {
-            position: relative;
-            width: 300px; // Adjust as needed
-            height: 300px; // Adjust as needed
-        }
+    .progress-value {
+        position: relative;
+        font-size: 60px;
+        font-weight: 600;
+        color: var(--progress-value-color);
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #333333;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        height: 50px;
+    }
+
+    .logo img {
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        background-color: #f0f0f0;
+    }
+
+    .input-text {
+        /* Update the width and remove the negative margin */
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 10px; /* Added margin-bottom */
+    }
+
+    .menu-links {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    .menu-links a {
+        text-decoration: none;
+        color: #fff;
+        padding: 2px 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .menu-links a:hover {
+        background-color: #56ab2f;
+    }
     </style>
 </head>
 <body>
@@ -190,31 +230,47 @@
         </div>
     </header>
     <div class="input-container">
-        <input type="text" id="cityInput" class="input-text" placeholder="Enter city name">
+        <input type="text" id="cityInput" class="input-text textbox-right" placeholder="Enter city name">
         <button onclick="getAirQualityData()" class="submit-button">Get AQI</button>
     </div>
     <div class="circular-progress" id="progressCircle">
         <span class="progress-value" id="progressText"></span>
     </div>
     <script>
-        function getAirQualityData() {
-            var cityName = document.getElementById("cityInput").value;
-            fetch(`/get_aqi?city=${cityName}`)
-                .then(response => response.json())
-                .then(data => {
-                    var aqi = data.aqi;
-                    var progressText = document.getElementById("progressText");
-                    progressText.innerText = aqi;
-                    animateProgressBar(aqi);
-                })
-                .catch(error => console.error('Error:', error));
-        }
+function getAirQualityData() {
+        var cityName = document.getElementById("cityInput").value;
+        fetch(`/get_aqi?city=${cityName}`)
+            .then(response => response.json())
+            .then(data => {
+                var aqi = data.aqi;
+                var progressText = document.getElementById("progressText");
+                progressText.innerText = aqi;
+                animateProgressBar(aqi); // Call animateProgressBar function
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
-        function animateProgressBar(aqi) {
-            var progressBar = document.getElementById("progressCircle");
-            var progressValue = (aqi / 500) * 360;
-            progressBar.style.background = `conic-gradient(#7d2ae8 ${progressValue}deg, #ededed 0deg)`;
+    function animateProgressBar(aqi) {
+        var progressBar = document.getElementById("progressCircle");
+        var progressValue = (aqi / 500) * 360;
+        progressBar.style.background = `conic-gradient(#7d2ae8 ${progressValue}deg, #ededed 0deg)`;
+    }
+    function animateProgressBar(aqi) {
+    var progressBar = document.getElementById("progressCircle");
+    var currentValue = parseFloat(progressText.innerText);
+    var increment = (aqi - currentValue) / 100; // Adjust the increment value as needed
+    var interval = setInterval(function() {
+        currentValue += increment;
+        if (currentValue >= aqi) {
+            clearInterval(interval);
+            currentValue = aqi;
         }
+        var progressValue = (currentValue / 500) * 360;
+        progressBar.style.background = `conic-gradient(#7d2ae8 ${progressValue}deg, #ededed 0deg)`;
+        progressText.innerText = Math.round(currentValue); // Update progress text
+    }, 50); // Adjust the interval time as needed (in milliseconds)
+}
+
     </script>
 </body>
 </html>
