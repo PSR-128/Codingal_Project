@@ -194,48 +194,44 @@
     </footer>
 
     <script>
-    // Function to redirect to news.html with the content of the selected news
-    function redirectToNews(content) {
-        window.location.href = `news.html?content=${encodeURIComponent(content)}`;
-    }
-
     async function fetchNews() {
-        const apiKey = '94b4958687e44ec381ee8088a34bf7d3'; // Your News API key
-        const apiUrl = `https://newsapi.org/v2/everything?q=renewable+energy&apiKey=${apiKey}&pageSize=12`;
+    const apiKey = '94b4958687e44ec381ee8088a34bf7d3'; // Your News API key
+    const apiUrl = `https://newsapi.org/v2/everything?q=renewable+energy&apiKey=${apiKey}&pageSize=12`;
 
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-            const newsContainer = document.getElementById('news-container');
-            data.articles.forEach((article, index) => {
-                const newsBox = document.createElement('div');
-                newsBox.classList.add('news-box');
+        const newsContainer = document.getElementById('news-container');
+        data.articles.forEach((article, index) => {
+            const newsBox = document.createElement('div');
+            newsBox.classList.add('news-box');
 
-                const newsTitle = document.createElement('h3');
-                newsTitle.classList.add('news-title');
-                newsTitle.textContent = article.title;
-                newsBox.appendChild(newsTitle);
+            const newsTitle = document.createElement('h3');
+            newsTitle.classList.add('news-title');
+            newsTitle.textContent = article.title;
+            newsBox.appendChild(newsTitle);
 
-                const newsImage = document.createElement('img');
-                newsImage.classList.add('news-image');
-                newsImage.src = article.urlToImage || 'https://via.placeholder.com/150';
-                newsImage.alt = article.title;
-                newsBox.appendChild(newsImage);
+            const newsImage = document.createElement('img');
+            newsImage.classList.add('news-image');
+            newsImage.src = article.urlToImage || 'https://via.placeholder.com/150';
+            newsImage.alt = article.title;
+            newsBox.appendChild(newsImage);
 
-                // Add click event listener to the entire news box
-                newsBox.addEventListener('click', () => {
-                    redirectToNews(article.content);
-                });
-
-                newsContainer.appendChild(newsBox);
+            // Add click event listener to open the source URL in a new tab
+            newsBox.addEventListener('click', () => {
+                window.open(article.url, '_blank');
             });
-        } catch (error) {
-            console.error('Error fetching news:', error);
-        }
-    }
 
-    window.onload = fetchNews;
+            newsContainer.appendChild(newsBox);
+        });
+    } catch (error) {
+        console.error('Error fetching news:', error);
+    }
+}
+
+window.onload = fetchNews;
+
     </script>
 
 </body>
