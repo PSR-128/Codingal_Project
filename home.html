@@ -77,7 +77,9 @@
         padding: 2px;
         margin-top: -50px;
         display: flex;
+        justify-content: flex-end; /* Align links to the right */
     }
+
 
     .quiz {
         margin-right: 20px;
@@ -161,18 +163,18 @@
 
     .link-container {
         position: absolute;
-        top: 0;
-        right: 0;
+
         display: flex;
         justify-content: flex-end;
-        align-items: center;
+
         font-size: 14px;
         text-transform: uppercase;
         padding: 16px 10px;
         border-radius: 0 0 0 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         max-height: 50px;
-        border-left: 2px solid var(--header-background); /* Add left border */
+        border-left: 2px solid var(--header-background); // right
+        border-right: 2px solid var(--header-background); // left
     }
 
     .link-container a {
