@@ -5,170 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sustainable Cities</title>
     <style>
-        * {
-            transition: all 0.3s ease-in-out;
-        }
+    :root {
+        --background-color: #007bff;
+        --text-color: #fff;
+        --accent-color: #ffd700;
+        --button-hover-color: #6a1fc2;
+        --header-background: #333333;
+        --link-color: #7effb6;
+        --link-hover-color: #333333;
+        --input-border-color: #ccc;
+        --input-placeholder-color: #ccc;
+        --input-focus-border-color: #56ab2f;
+        --input-label-color: #ccc;
+        --input-label-focus-color: #999;
+        --progress-value-color: #00FF00;
+        --inner-textbox-color: #3CB371;
+        --inner-circular-progress-color: #3CB371;
+    }
 
-        .logo {
-            width: 150px;
-            height: auto;
-            margin-left: 10px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background: #333333;
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        position: relative; /* Add relative position to body */
+        padding-left: 2px; /* Add padding to shift content away from the border */
+    }
 
-        .info-container {
-            background-color: rgba(245, 245, 245, 1);
-            padding: 10px;
-            display: inline-block;
-            animation: slideInLeft 1s ease-in-out;
-        }
+    header {
+        background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        opacity: 0.7;
+        padding: 7.18rem 4rem;
+        color: #333;
+        text-align: left;
+        position: relative;
+        animation: backgroundAnimate 30s linear infinite;
+        border: 10px solid var(--header-background); // this changes the border thickness
+    }
 
-        .box-area {
-            background-color: rgba(245, 245, 245, 1);
-            padding: 10px;
-            display: inline-block;
-            animation: slideInLeft 1s ease-in-out;
+    @keyframes backgroundAnimate {
+        0% {
+            background-position: 100% 50%;
         }
-
-        .quiz-container {
-            background-color: rgba(62, 180, 137, 0.81015);
-            padding: 2px;
-            margin-top: -50px;
-            display: flex;
+        100% {
+            background-position: 0% 50%;
         }
+    }
 
-        .quiz {
-            margin-right: 20px;
+    h1, h2 {
+        color: #2ECC71;
+        animation: slideInLeft 1s ease-in-out;
+    }
+
+    .info-container {
+        background-color: rgba(102, 102, 102, 1);
+        padding: 10px;
+        display: inline-block;
+        animation: slideInLeft 1s ease-in-out;
+        color: hsl(0, 0%, 95%); // this changes the text color and deepness
+    }
+
+
+    .quiz-container {
+        background-color: rgba(62, 180, 137, 0.81015);
+        padding: 2px;
+        margin-top: -50px;
+        display: flex;
+    }
+
+    .quiz {
+        margin-right: 20px;
+    }
+
+    .quiz a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .quiz a:hover {
+        color: #eecf3f;
+    }
+
+    main {
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 800px;
+        color: #333;
+    }
+
+    footer {
+        background-color: #5ba827;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        animation: fadeInBottom 1s ease-in-out;
+    }
+
+    .news-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .news-box {
+        width: calc(25% - 20px);
+        height: auto;
+        border: 2px solid #3EB489;
+        padding: 20px;
+        margin: 10px;
+        animation: fadeIn 1s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer; /* Added cursor pointer for clickability */
+    }
+
+    .news-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        animation: slideInLeft 1s ease-in-out;
+        overflow: hidden;
+        height: 60px;
+    }
+
+    .news-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 10px;
+        animation: slideInLeft 1s ease-in-out;
+    }
+
+    .news-content {
+        display: none;
+    }
+
+    .read-more {
+        display: none;
+    }
+
+    /* Additional CSS for theme conversion */
+    .logo {
+        width: 150px;
+        height: auto;
+        margin-left: 10px;
+    }
+
+    .link-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 16px 10px;
+        border-radius: 0 0 0 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-height: 50px;
+        border-left: 2px solid var(--header-background); /* Add left border */
+    }
+
+    .link-container a {
+        text-decoration: none;
+        color: var(--link-color);
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin: 0 5px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .link-container a:hover {
+        color: var(--link-hover-color);
+        background-color: transparent; /* Update hover background color */
+        transform: none;
+    }
+
+    .header {
+        color: var(--link-color);
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 2px 12px;
+        background-color: var(--header-background);
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 150px;
+        margin-right: auto;
+        border-right: 2px solid var(--header-background); /* Add right border */
+    }
+
+    body {
+        position: relative; /* Add relative position to body */
+        padding-left: 2px; /* Add padding to shift content away from the border */
+    }
+
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
         }
-
-        .quiz a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease-in-out;
+        to {
+            transform: translateX(0);
+            opacity: 1;
         }
+    }
 
-        .quiz a:hover {
-            color: #eecf3f;
+    @keyframes fadeInBottom {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
         }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2;
-            width: 100%;
-            height: 100%;
+        to {
+            transform: translateY(0);
+            opacity: 1;
         }
+    }
+</style>
 
-        header {
-            background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
-            opacity: 0.7;
-            padding: 7.18rem 4rem;
-            color: #333;
-            text-align: left;
-            position: relative;
-            animation: backgroundAnimate 30s linear infinite;
-        }
 
-        @keyframes backgroundAnimate {
-            0% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        h1, h2 {
-            color: #2ECC71;
-            animation: slideInLeft 1s ease-in-out;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        main {
-            padding: 2rem;
-            margin: 0 auto;
-            max-width: 800px;
-            color: #333;
-        }
-
-        footer {
-            background-color: #5ba827;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            animation: fadeInBottom 1s ease-in-out;
-        }
-
-        @keyframes fadeInBottom {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .news-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .news-box {
-            width: calc(25% - 20px);
-            height: auto;
-            border: 2px solid #3EB489;
-            padding: 20px;
-            margin: 10px;
-            animation: fadeIn 1s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer; /* Added cursor pointer for clickability */
-        }
-
-        .news-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-            animation: slideInLeft 1s ease-in-out;
-            overflow: hidden;
-            height: 60px;
-        }
-
-        .news-image {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            margin-bottom: 10px;
-            animation: slideInLeft 1s ease-in-out;
-        }
-
-        .news-content {
-            display: none;
-        }
-
-        .read-more {
-            display: none;
-        }
-
-    </style>
 </head>
 <body>
     <header>
