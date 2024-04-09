@@ -10,25 +10,50 @@ def index():
 @app.route('/get_aqi')
 def get_aqi():
     city = request.args.get('city')
-    response = requests.get(f'https://api.waqi.info/feed/{city}/?token=a5ce4f19eae698a8cd0088d064a2876a218d614c')
-    data = response.json()
-    if 'data' in data and 'aqi' in data['data']:
-        aqi = data['data']['aqi']
-        return jsonify({'aqi': aqi})
-    else:
-        return jsonify({'error': 'AQI data not available for the specified city'})
-
+    waqi_token = 'a5ce4f19eae698a8cd0088d064a2876a218d614c'
+    response = requests.get(f'https://api.waqi.info/feed/{city}/?token={waqi_token}')
+    if response.ok:
+        data = response.json()
+        if 'data' in data and 'aqi' in data['data']:
+            aqi = data['data']['aqi']
+            air_quality_data = {
+                'Nan': data['data']['iaqi'].get('n'),
+                'O2': data['data']['iaqi'].get('o3'),
+                'CO2': data['data']['iaqi'].get('co'),
+                'S2': data['data']['iaqi'].get('so2'),
+                'N2': data['data']['iaqi'].get('no2'),
+                'PM2.5': data['data']['iaqi'].get('pm25'),
+                'PM10': data['data']['iaqi'].get('pm10')
+            }
+            return jsonify({'aqi': aqi, 'air_quality_data': air_quality_data})
+    return jsonify({'error': 'AQI data not available for the specified city'})
 
 @app.route('/news_content')
 def news_content():
-    # Make a request to the News API endpoint
-    response = requests.get('https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=94b4958687e44ec381ee8088a34bf7d3')
+    api_key = 'XlmQZDkCfwzWUhtKQmIJazy2C8dwh5y4 '
+    response = requests.get(f'https://newsapi.org/v2/everything?q=renewable+energy&apiKey={api_key}&pageSize=12')
     if response.ok:
-        # Extract news content from the response
-        news_content = response.text
-        return render_template('news.html', news_content=news_content)
+        news_data = response.json()
+        articles = []
+        for article in news_data.get('articles', []):
+            articles.append({'title': article['title'], 'content': article['content']})
+        return render_template('news.html', articles=articles)
     else:
-        return 'Failed to fetch news content'
+        return render_template('news.html', articles=[])
+
+
+@app.route('/aqi.html')
+def aqi_page():
+    city = request.args.get('city')
+    response = requests.get(f'http://127.0.0.1:5000/get_aqi?city={city}')
+    if response.ok:
+        data = response.json()
+        if 'aqi' in data:
+            aqi = data['aqi']
+            air_quality_data = data.get('air_quality_data', {})
+            return render_template('aqi.html', aqi=aqi, air_quality_data=air_quality_data)
+
+    return render_template('aqi.html', error='AQI data not available for the specified city')
 
 # Routes for other pages
 @app.route('/home.html')
@@ -38,10 +63,6 @@ def home_page():
 @app.route('/quiz.html')
 def quiz_page():
     return render_template('quiz.html')
-
-@app.route('/aqi.html')
-def aqi_page():
-    return render_template('aqi.html')
 
 @app.route('/clean_energy.html')
 def clean_energy_page():
