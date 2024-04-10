@@ -169,7 +169,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: #333333;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -220,10 +220,15 @@
        .table-container {
             display: flex;
             flex-direction: column;
+            width: 64.67%;
             align-items: flex-end;
-            margin-top: 20px; 
-            margin-right: 20px; /* Adjust margin as needed */
+            position: absolute;
+            top:200px;
+            right: 40px;
+            display:none;
         }
+
+
 
         table {
             color: white;
@@ -284,47 +289,53 @@
 
     <script>
         function animateProgressBar(aqi) {
-            // will make this cooler
+            // Implement progress animation if needed
         }
 
         function populateAirQualityTable(airQualityData) {
             var tableBody = document.getElementById("airQualityTableBody");
-            tableBody.innerHTML = ""; 
+            tableBody.innerHTML = ""; // Clear previous data
 
             for (var key in airQualityData) {
-                if (airQualityData.hasOwnProperty(key)) {
-                    var value = airQualityData[key];
-                    var row = `<tr><td>${key}</td><td>${value}</td></tr>`;
-                    tableBody.innerHTML += row;
-                }
+            if (airQualityData.hasOwnProperty(key)) {
+                var value = airQualityData[key];
+                var row = `<tr><td>${key}</td><td>${value}</td></tr>`;
+                tableBody.innerHTML += row;
             }
         }
 
-        function getAirQualityData() {
-            var cityName = document.getElementById("cityInput").value;
-            fetch(`/get_aqi?city=${cityName}`)
-               .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-               .then(data => {
-                    if (data && data.aqi !== undefined && data.air_quality_data) {
-                        var aqi = data.aqi;
-                        var airQualityData = data.air_quality_data;
-                        var progressText = document.getElementById("progressText");
-                        progressText.innerText = aqi;
-                        populateAirQualityTable(airQualityData);
-                        animateProgressBar(aqi);
-                    } else {
-                        console.error('Unexpected response format:', data);
-                    }
-                })
-               .catch(error => {
-                    console.error('Error:', error);
-                });
         }
+
+     function getAirQualityData() {
+    var cityName = document.getElementById("cityInput").value;
+    fetch(`/get_aqi?city=${cityName}`)
+       .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+       .then(data => {
+            if (data && data.aqi !== undefined && data.air_quality_data) {
+                var aqi = data.aqi;
+                var airQualityData = data.air_quality_data;
+
+                var progressText = document.getElementById("progressText");
+                progressText.innerText = aqi;
+
+                populateAirQualityTable(airQualityData);
+                animateProgressBar(aqi);
+
+                // Show the table after data is fetched
+                document.querySelector('.table-container').style.display = 'block';
+            } else {
+                console.error('Unexpected response format:', data);
+            }
+        })
+       .catch(error => {
+            console.error('Error:', error);
+        });
+}
     </script>
 </body>
 </html>
