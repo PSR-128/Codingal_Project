@@ -11,8 +11,9 @@
         font-family: 'Roboto', sans-serif;
         line-height: 1.6;
         font-size: 25px;
-        color: white;
-        padding: 5px;
+        color: white; 
+        margin: 0;
+        padding: 0;
         width: 100%; 
         height: 100%; 
         background: #333333;
@@ -23,28 +24,34 @@
           background-size: cover;
      	  background-attachment: fixed;
           text-align: center;
-          padding: 4rem;  
+          padding: 7.18rem 4rem;  
     }
 
     p{
         font-size: 20px;
         margin-left: 7.5px;
+        margin-right: 7.5px;
+        padding: 5px;
         width: 50%;
-        max-width: 50%;
     }
     div {
         font-size: 25px;
     }
-
+    main {
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 800px;
+        color: #333; /* Darker text color for better visibility */
+    }
     footer {
         background-color: #5ba827;
         color: white;
         text-align: center;
         padding: 1rem;
         margin-top: 1.5rem;
-        margin-bottom: 0px;
     }
     ul {
+    	text-align: left;
         font-size: 1.5em;
     }
     a:link {
@@ -65,16 +72,14 @@
     }
     nav > ul {
 		display: inline;
+		padding: auto;
         text-align: right;
-        margin-top: 0px;
-        margin-left: 5px;
 	}
     nav >  ul > li {
 	    display: inline-block;
 		list-style: none;
-        margin: 0 5px 0 5px;
+		margin: 0 5px 0 5px;
         text-align: right;
-
 	}
     nav a:link, a:visited {
         color: white;
@@ -85,27 +90,28 @@
         text-decoration: underline;
     }
 
-    nav {
-        text-align: left;
-    }
     h4, h3{
         font-size: 30px;
-    }
-    h2 {
-        text-align: center;
+        text-align: left;
+        margin-left: 10px;
     }
 
-    img {
-        float: right;
+    nav {
+        text-align: right;
+        margin: 15px;
+    }
+
+    h2 {
+        text-align: center;
     }
   </style>
 </head>
 <body>
 <nav>
     <ul>
-    <li><a href="home.html">Home Page</a></li>
-    <li><a href="quiz.html">Quiz</a></li>
-    <li><a href="aqi.html">Air Quality</a></li>
+    <li><h5><a href="home.html">Home Page</a></h5></li>
+    <li><h5><a href="quiz.html">Quiz</a></h5></li>
+    <li><h5><a href="aqi.html">Air Quality</a></h5></li>
     </ul>
 </nav>
     <header>
@@ -121,11 +127,10 @@
     <li><a href="#fuel">Hydrogen Fuel Cells</a></li>
     </ul>
     <h2 id="individual-ways">Individual Ways:</h2>
-    <ul class="info-list">
+    <ul>
     <li>
         <h4>Gardens: </h4>
-        <p>The plants absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these gardens help reduce visual pollution from the industries and factories being built in the cities.</p>
-        
+        <p>The plant absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these garden help reudce visual pollution from the industries and factories being built in the cities.</p>
     </li>
     <li>
         <h4>Use of Electric Vehicles:</h4>
@@ -133,7 +138,7 @@
     </li>
     <li>
         <h4>Maintanence of The Home:</h4>
-        <p>Due to the roofs of houses, there is a great amount of runoff generated. This runoff can carry waste products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution.</p>
+        <p>Due to roofs of houses, there is a great amount of runoff generated. This runoff can carry waster products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution.</p>
     </li>
     <li>
         <h4>Recycling and Composting:</h4>
@@ -141,7 +146,7 @@
     </li>
     <li>
         <h4>Avoid Aerosols:</h4>
-        <p>They contain gases that can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well.</p>
+        <p>They contain gases which can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well.</p>
     </li>
     </ul><br>
     <h2 id="statistics"><strong>Statistics</strong></h2><br>
@@ -153,20 +158,20 @@
     <h3><strong>Solar Energy:</strong></h3><p>The global solar capacity is 850.2 gigawatts, which is 10 times higher than the capacity in 2011. 
         Currently, 4.4% percent of global energy comes from solar energy. 
         Other than being a non-polluting energy source, solar energy provides jobs for over 3.5 million people worldwide.
-        According to the IRENA, the cost of electricity from solar projects has decreased by 85 percent since 2010.
+        According to the IRENA, cost of electricty from solar projects have decreased by 85 percent since 2010.
         By 2020, global investment in solar energy had reached 160.8 billion USD.
-        Solar energy production was distributed throughout all geographical locations while showing more growth in developed countries such as China or US.</p>
+        Solar energy production was distributed throughout all geographical location, while showing more growth in developed countries such as China or US.</p>
     </div><br><br>
     <div class="wind" id="wind">
     <h3><strong>Wind Energy:</strong></h3><p>The global wind energy capacity is 906 gigawatts, and a 9% yearly growth is shown. 
         Moreover, 680 GW of wind capacity is expected to be installed in the next 5 years. 
         In 2022, wind turbines produced 2100 trillion watt-hours, accounting for 24 percent of total electricity production.
-        China, the US, the EU, India, and Brazil are currently some of the area with the largest amount of turbines installed.
+        China, US, the EU, India, and Brazil are currently some of the area with the largest amount of turbines installed.
         The cost of electricity from wind projects have decreased by 50% since 2010.</p>
     </div><br><br>
     <div class="tidal" id="tidal">
     <h3><strong>Tidal Energy:</strong></h3><p>The total estimated power produced by tidal energy is 3,000 GW. 
-        Each tidal barrage can produce between 120 to 400 GW depending on various factors.</p>
+        Each tidal barrage is able to produce between 120 to 400 GW depending on various factors.</p>
     </div><br><br>
     <div class="geothermal" id="geothermal">
     <h3><strong>Geothermal Energy:</strong></h3><p>Over 10 million trillion joules per year are being used in different sectors, globally. 
@@ -182,3 +187,4 @@
   </footer>
 </body>
 </html>
+
