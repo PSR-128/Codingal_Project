@@ -4,26 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    .root {
+            --header-background: #333333; /* Define custom property */
+        }
     body {
         font-family: 'Roboto', sans-serif;
         line-height: 1.6;
         font-size: 25px;
         color: white;
-        text-align: left; 
+        text-align: center; 
         margin: 0;
         padding: 0;
         width: 100%; 
         height: 100%; 
-        background: linear-gradient(to right, #3EB499, white);
+        background: #333333;
     }
     header {
-  	  	  background-color: #3EB489;
+  	  	  background-color: #333333;
           background-position: center;
           background-size: cover;
      	  background-attachment: fixed;
           text-align: center;
-          padding: 7.18rem 4rem;
-          background: linear-gradient(to left, #3EB489, black);  
+          padding: 7.18rem 4rem;  
+    }
+
+    p{
+        font-size: 20px;
+        margin-left: 7.5px;
+        margin-right: 7.5px;
+        padding: 5px;
     }
     div {
         font-size: 25px;
@@ -82,6 +91,10 @@
         color: grey;
         text-decoration: underline;
     }
+
+    h4, h3{
+        font-size: 30px;
+    }
   </style>
 </head>
 <body>
@@ -93,8 +106,18 @@
     </ul>
 </nav>
   <header>
-  	<h2>Ways to Reduce Pollution</h2>
-    <h3>Commercial Ways:</h3>
+    <div class="header-container">
+        <h1>Ways to Reduce Pollution</h1>
+        <nav>
+            <ul>
+                <li><a href="#commercial-ways">Commercial Ways</a></li>
+                <li><a href="#individual-ways">Individual Ways</a></li>
+                <li><a href="#statistics">Statistics</a></li>
+            </ul>
+        </nav>
+    </div><br>
+    </header>
+    <h2 id="commercial-ways">Commercial Ways:</h2>
     <ul>
     <li><a href="#biofuels">Biofuels</a></li>
     <li><a href="#solar">Solar Energy</a></li>
@@ -103,36 +126,36 @@
     <li><a href="#geothermal">Geothermal Energy</a></li>
     <li><a href="#fuel">Hydrogen Fuel Cells</a></li>
     </ul>
-    <h3>Individual Ways:</h3>
+    <h2 id="individual-ways">Individual Ways:</h2>
     <ul>
-    <li><strong>Gardens: </strong></li>
-    <div>
-    <p>The plant absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these garden help reudce visual pollution from the industries and factories being built in the cities.</p><br>
-    </div>
-    <li><strong>Use of Electric Vehicles: </strong></li>
-    <div>
-    <p>This will help decrease the burning of fossil fuels, helping reduce the increase in global warming and pollution. Moreover, these non-renewable resources can be sustained for future generations.</p><br>
-    </div>
-    <li><strong>Maintanence of The Home: </strong></li>
-    <div>
-    <p>Due to roofs of houses, there is a great amount of runoff generated. This runoff can carry waster products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution.</p><br>
-    </div>
-    <li><strong>Recycling and Composting: </strong></li>
-    <div>
-    <p>Helps keep excess waste out of landfills. Moreover, buying products made from recycled materials helps contribute to the effort.</p><br>
-    </div>
-    <li><strong>Avoid Aerosols: </strong></li>
-    <div>
-    <p>They contain gases which can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well.</p>
-    </div>
+    <li>
+        <h4>Gardens: </h4>
+        <p>The plant absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these garden help reudce visual pollution from the industries and factories being built in the cities.</p>
+    </li>
+    <li>
+        <h4>Use of Electric Vehicles:</h4>
+        <p>This will help decrease the burning of fossil fuels, helping reduce the increase in global warming and pollution. Moreover, these non-renewable resources can be sustained for future generations.</p>
+    </li>
+    <li>
+        <h4>Maintanence of The Home:</h4>
+        <p>Due to roofs of houses, there is a great amount of runoff generated. This runoff can carry waster products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution.</p>
+    </li>
+    <li>
+        <h4>Recycling and Composting:</h4>
+        <p>Helps keep excess waste out of landfills. Moreover, buying products made from recycled materials helps contribute to the effort.</p>
+    </li>
+    <li>
+        <h4>Avoid Aerosols:</h4>
+        <p>They contain gases which can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well.</p>
+    </li>
     </ul><br>
-    <h3><strong>Statistics</strong></h3><br>
+    <h2 id="statistics"><strong>Statistics</strong></h2><br>
     <div class="biofuels" id="biofuels">
-    <p><strong>Biofuels:</strong>The biofuels market was valued at 117 billion U.S. dollars in 2002. 
+    <h3><strong>Biofuels:</strong></h3><p>The biofuels market was valued at 117 billion U.S. dollars in 2002. 
         However, the value is projected to grow to 201.2 billion U.S. dollars by 2030.</p>
     </div><br><br>
     <div class="solar" id="solar">
-    <p><strong>Solar Energy:</strong>The global solar capacity is 850.2 gigawatts, which is 10 times higher than the capacity in 2011. 
+    <h3><strong>Solar Energy:</strong></h3><p>The global solar capacity is 850.2 gigawatts, which is 10 times higher than the capacity in 2011. 
         Currently, 4.4% percent of global energy comes from solar energy. 
         Other than being a non-polluting energy source, solar energy provides jobs for over 3.5 million people worldwide.
         According to the IRENA, cost of electricty from solar projects have decreased by 85 percent since 2010.
@@ -140,26 +163,25 @@
         Solar energy production was distributed throughout all geographical location, while showing more growth in developed countries such as China or US.</p>
     </div><br><br>
     <div class="wind" id="wind">
-    <p><strong>Wind Energy:</strong>The global wind energy capacity is 906 gigawatts, and a 9% yearly growth is shown. 
+    <h3><strong>Wind Energy:</strong></h3><p>The global wind energy capacity is 906 gigawatts, and a 9% yearly growth is shown. 
         Moreover, 680 GW of wind capacity is expected to be installed in the next 5 years. 
         In 2022, wind turbines produced 2100 trillion watt-hours, accounting for 24 percent of total electricity production.
         China, US, the EU, India, and Brazil are currently some of the area with the largest amount of turbines installed.
         The cost of electricity from wind projects have decreased by 50% since 2010.</p>
     </div><br><br>
     <div class="tidal" id="tidal">
-    <p><strong>Tidal Energy:</strong>The total estimated power produced by tidal energy is 3,000 GW. 
+    <h3><strong>Tidal Energy:</strong></h3><p>The total estimated power produced by tidal energy is 3,000 GW. 
         Each tidal barrage is able to produce between 120 to 400 GW depending on various factors.</p>
     </div><br><br>
     <div class="geothermal" id="geothermal">
-    <p><strong>Geothermal Energy:</strong>Over 10 million trillion joules per year are being used in different sectors, globally. 
+    <h3><strong>Geothermal Energy:</strong></h3><p>Over 10 million trillion joules per year are being used in different sectors, globally. 
         As of 2021, global geothermal power generation has amounted to 16 GW. 
         This amount of power generated is able to reduce over 25 million tonnes of carbon dioxide produced by fossil fuels.</p>
     </div><br><br>
     <div class="fuel" id="fuel">
-    <p><strong>Hydrogen Fuel Cells:</strong>The annual capacity has grown to 8 GW, while the capacity is expected to grow to 60 GW by 2030.
+    <h3><strong>Hydrogen Fuel Cells:</strong></h3><p>The annual capacity has grown to 8 GW, while the capacity is expected to grow to 60 GW by 2030.
         Moreover, due to the release of only water as its product, toxic gas emissions can be reduced.</p>
-    </div><br><br>
-  </header>
+    </div>
   <footer>
       &copy; 2024 Sustainable Cities. All rights reserved.
   </footer>
