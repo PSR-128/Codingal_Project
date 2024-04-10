@@ -17,20 +17,19 @@ def get_aqi():
         if 'data' in data and 'aqi' in data['data']:
             aqi = data['data']['aqi']
             air_quality_data = {
-                'Dew': data['data']['iaqi'].get('dew', {}).get('v'),
-                'Humidity': data['data']['iaqi'].get('h', {}).get('v'),
-                'Pressure': data['data']['iaqi'].get('p', {}).get('v'),
-                'Temperature': data['data']['iaqi'].get('t', {}).get('v'),
-                'Wind Speed': data['data']['iaqi'].get('w', {}).get('v'),
-                'Wind Gust Speed': data['data']['iaqi'].get('wg', {}).get('v'),
-                'PM-2.5': data['data']['iaqi'].get('pm25', {}).get('v'),
-                'PM-10': data['data']['iaqi'].get('pm10', {}).get('v'),
-                'CO2': data['data']['iaqi'].get('co', {}).get('v'),
-                'O3': data['data']['iaqi'].get('o3', {}).get('v'),
-                'N2': data['data']['iaqi'].get('no2', {}).get('v'),
-                'S2': data['data']['iaqi'].get('so2', {}).get('v')
-            }# this is dict for aqi data
-
+                'Dew': data['data']['iaqi'].get('dew', {}).get('v', 'N/A'),
+                'Humidity': data['data']['iaqi'].get('h', {}).get('v', 'N/A'),
+                'Pressure': data['data']['iaqi'].get('p', {}).get('v', 'N/A'),
+                'Temperature': data['data']['iaqi'].get('t', {}).get('v', 'N/A'),
+                'Wind Speed': data['data']['iaqi'].get('w', {}).get('v', 'N/A'),
+                'Wind Gust Speed': data['data']['iaqi'].get('wg', {}).get('v', 'N/A'),
+                'PM-2.5': data['data']['iaqi'].get('pm25', {}).get('v', 'N/A'),
+                'PM-10': data['data']['iaqi'].get('pm10', {}).get('v', 'N/A'),
+                'CO': data['data']['iaqi'].get('co', {}).get('v', 'N/A'),
+                'O3': data['data']['iaqi'].get('o3', {}).get('v', 'N/A'),
+                'NO2': data['data']['iaqi'].get('no2', {}).get('v', 'N/A'),
+                'SO2': data['data']['iaqi'].get('so2', {}).get('v', 'N/A')
+            }
             return jsonify({'aqi': aqi, 'air_quality_data': air_quality_data})
     return jsonify({'error': 'AQI data not available for the specified city'})
 
@@ -46,7 +45,8 @@ def news_content():
         return render_template('news.html', articles=articles)
     else:
         return render_template('news.html', articles=[])
-        
+
+
 @app.route('/aqi.html')
 def aqi_page():
     city = request.args.get('city')
@@ -59,7 +59,7 @@ def aqi_page():
             return render_template('aqi.html', aqi=aqi, air_quality_data=air_quality_data)
 
     return render_template('aqi.html', error='AQI data not available for the specified city')
-    
+
 # Routes for other pages
 @app.route('/home.html')
 def home_page():
