@@ -6,6 +6,7 @@
     <title>Clean Energy Air Quality Checker</title>
     <style>
         :root {
+            /* Color scheme and other root variables */
             --background-color: #007bff;
             --text-color: #333;
             --accent-color: #ffd700;
@@ -23,12 +24,14 @@
             --inner-circular-progress-color: #3CB371;
         }
 
-        body {
+        body, html {
             font-family: Arial, sans-serif;
             background: #333333;
             color: var(--text-color);
             margin: 0;
             padding: 0;
+            height: 100%;
+            width: 100%;
         }
 
        .header {
@@ -227,9 +230,6 @@
             right: 40px;
             display:none;
         }
-
-
-
         table {
             color: white;
             background-color: rgba(255, 255, 255, 0.1);
@@ -254,6 +254,20 @@
         tr:nth-child(even) {
             background-color: rgba(255, 255, 255, 0.1);
         }
+
+        .chart-container {
+            display: block; 
+            background-color: #ffffff; 
+            color: #333333; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            margin: 20px; 
+            width: 90%; 
+            height: 500px; 
+            margin: 0 auto; 
+        }
+
     </style>
 </head>
 <body>
@@ -265,15 +279,17 @@
             <a href="clean_energy.html">Clean Energy</a>
         </div>
     </header>
+
     <div class="input-container">
-        <input type="text" id="cityInput" class="input-text textbox-right" placeholder="Enter city name">
+        <input type="text" id="cityInput" class="input-text" placeholder="Enter city name">
         <button onclick="getAirQualityData()" class="submit-button">Get AQI</button>
     </div>
+
     <div class="circular-progress" id="progressCircle">
         <span class="progress-value" id="progressText"></span>
     </div>
 
-    <div class="table-container">
+    <div class="table-container" style="display: none;">
         <table id="airQualityTable">
             <thead>
                 <tr>
@@ -287,55 +303,99 @@
         </table>
     </div>
 
-    <script>
-        function animateProgressBar(aqi) {
-            // Implement progress animation if needed
+    <div id="aqiChartCanvas" class="chart-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('cityInput');
+    input.addEventListener('keypress', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            getAirQualityData();
         }
+    });
 
-        function populateAirQualityTable(airQualityData) {
-            var tableBody = document.getElementById("airQualityTableBody");
-            tableBody.innerHTML = ""; // Clear previous data
+    function getAirQualityData() {
+        var cityName = document.getElementById("cityInput").value;
+        axios.get(`/get_aqi?city=${encodeURIComponent(cityName)}`)
+            .then(response => {
+                const data = response.data;
+                if (data && data.aqi !== undefined && data.air_quality_data) {
+                    var aqi = data.aqi;
+                    var airQualityData = data.air_quality_data;
 
-            for (var key in airQualityData) {
-            if (airQualityData.hasOwnProperty(key)) {
-                var value = airQualityData[key];
-                var row = `<tr><td>${key}</td><td>${value}</td></tr>`;
-                tableBody.innerHTML += row;
-            }
-        }
+                    document.getElementById("progressText").innerText = aqi;
+                    populateAirQualityTable(airQualityData);
+                    animateProgressBar(aqi);
 
-        }
+                    document.querySelector('.table-container').style.display = 'block';
 
-     function getAirQualityData() {
-    var cityName = document.getElementById("cityInput").value;
-    fetch(`/get_aqi?city=${cityName}`)
-       .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-       .then(data => {
-            if (data && data.aqi !== undefined && data.air_quality_data) {
-                var aqi = data.aqi;
-                var airQualityData = data.air_quality_data;
+                    // Update the chart with historical AQI data
+                    getHistoricalAQIData(cityName);
+                } else {
+                    console.error('Unexpected response format:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-                var progressText = document.getElementById("progressText");
-                progressText.innerText = aqi;
-
-                populateAirQualityTable(airQualityData);
-                animateProgressBar(aqi);
-
-                // Show the table after data is fetched
-                document.querySelector('.table-container').style.display = 'block';
+    function getHistoricalAQIData(city) {
+    axios.get(`/get_historical_aqi_plot?city=${encodeURIComponent(city)}`)
+        .then(response => {
+            const plotData = response.data;
+            if (plotData && !plotData.error) {
+                // Assuming plotData is already in the correct format required by Plotly.
+                Plotly.newPlot('aqiChartCanvas', plotData);  // Ensure this ID matches the container in your HTML
             } else {
-                console.error('Unexpected response format:', data);
+                document.getElementById('aqiChartCanvas').innerHTML = '<p>No data available.</p>';
             }
         })
-       .catch(error => {
-            console.error('Error:', error);
+        .catch(error => {
+            console.error('Error fetching plot data:', error);
+            document.getElementById('aqiChartCanvas').innerHTML = '<p>Error loading data.</p>';
         });
 }
-    </script>
+
+function fetchAndDisplayChart(city) {
+    fetch(`/get_historical_aqi_plot?city=${city}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("No data available");
+            } else {
+                // Correctly use Plotly.newPlot to plot the data
+                Plotly.newPlot('aqiChart', JSON.parse(data.plotData));  
+            }
+        })
+        .catch(error => console.error('Error loading the AQI data:', error));
+}
+    function animateProgressBar(aqi) {
+        var circle = document.getElementById('progressCircle');
+        circle.style.background = `conic-gradient(var(--accent-color) ${aqi * 3.6}deg, var(--inner-circular-progress-color) 0deg)`;
+    }
+
+    function populateAirQualityTable(airQualityData) {
+        var tableBody = document.getElementById("airQualityTableBody");
+        tableBody.innerHTML = ""; // Clear previous data
+
+        Object.entries(airQualityData).forEach(([key, value]) => {
+            var row = `<tr><td>${key}</td><td>${value}</td></tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    if (document.getElementById('cityInput').form) {
+        document.getElementById('cityInput').form.onsubmit = function(event) {
+    event.preventDefault();  // Prevent the form from submitting
+    getAirQualityData();  // Call your function to fetch data
+};
+    }
+});
+</script>
 </body>
 </html>
