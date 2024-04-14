@@ -256,17 +256,20 @@
         }
 
         .chart-container {
-            display: block; 
-            background-color: #ffffff; 
-            color: #333333; 
-            padding: 20px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-            margin: 20px; 
-            width: 90%; 
-            height: 500px; 
-            margin: 0 auto; 
-        }
+    position: relative;
+    display: block;
+    top: 185px;  /* Updated from top-margin to top */
+    background-color: #333333;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 90%;
+    height: 500px;
+    margin: 0 auto;
+}
+
 
     </style>
 </head>
@@ -332,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     animateProgressBar(aqi);
 
                     document.querySelector('.table-container').style.display = 'block';
+                    document.querySelector('.chart-container').style.display = 'block';
 
                     // Update the chart with historical AQI data
                     getHistoricalAQIData(cityName);
@@ -369,7 +373,7 @@ function fetchAndDisplayChart(city) {
                 alert("No data available");
             } else {
                 // Correctly use Plotly.newPlot to plot the data
-                Plotly.newPlot('aqiChart', JSON.parse(data.plotData));  
+                Plotly.newPlot('aqiChart', JSON.parse(data.plotData));
             }
         })
         .catch(error => console.error('Error loading the AQI data:', error));
