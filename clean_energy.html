@@ -5,177 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bento Grid Layout</title>
     <style>
-        :root {
-            /* Color scheme and other root variables */
-            --background-color: #007bff;
-
-            --accent-color: #ffd700;
-            --button-hover-color: #6a1fc2;
-            --header-background: #333333;
-            --link-color: #7effb6;
-            --link-hover-color: #333333;
-            --input-border-color: #ccc;
-            --input-placeholder-color: #ccc;
-            --input-focus-border-color: #56ab2f;
-            --input-label-color: #ccc;
-            --input-label-focus-color: #999;
-            --progress-value-color: #00FF00;
-            --inner-textbox-color: #3CB371;
-            --inner-circular-progress-color: #3CB371;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #333333;
-            color: white;
-            overflow: auto;
-            height: 100vh;
-            position: relative;
-        }
-        header {
-            background: #333333;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-        }
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 10px;
-            color:#333333
-        }
-        nav ul li {
-            margin: 0 20px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: #00ffcc;
-        }
-        .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* Adjusted from 12 to 3 for larger column widths */
-    grid-template-rows: repeat(3, 300px);  /* More rows and larger height */
-    gap: 20px;  /* Larger gap between blocks */
-    width: 100%;
-    padding: 40px;  /* Increased padding */
-    box-sizing: border-box;
+:root {
+    /* Color scheme and other root variables */
+    --background-color: #007bff;
+    --accent-color: #ffd700;
+    --button-hover-color: #6a1fc2;
+    --header-background: #333333;
+    --link-color: #7effb6;
+    --link-hover-color: #333333;
+    --input-border-color: #ccc;
+    --input-placeholder-color: #ccc;
+    --input-focus-border-color: #56ab2f;
+    --input-label-color: #ccc;
+    --input-label-focus-color: #999;
+    --progress-value-color: #00FF00;
+    --inner-textbox-color: #3CB371;
+    --inner-circular-progress-color: #3CB371;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #333333;
+    color: white;
+    overflow: auto;
+    height: 100vh;
+    position: relative;
+}
+header {
+    background: #333333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+    color:#333333
+}
+nav ul li {
+    margin: 0 20px;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+nav ul li a:hover {
+    color: #00ffcc;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 300px);
+    gap: 20px;
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
 .block {
     background: rgba(0, 0, 0, 0.5);
-    padding: 40px;  /* Increased padding inside blocks */
+    padding: 40px;
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    font-size: 18px;  /* Larger font size */
-    transition: transform 0.3s ease;
+    font-size: 18px;
+    transition: transform 0.3s ease, flex-grow 0.5s ease;
+    overflow: hidden;
 }
-
 .block:hover {
     transform: translateY(-10px);
     box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5);
 }
+.block.active {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+.block.active ~ .block {
+    opacity: 0.3;
+    transform: scale(0.8);
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background-color: #333333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.header {
+    color: var(--link-color);
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 2px 12px;
+    background-color: var(--header-background);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    margin-right: auto;
+    font-weight: normal;
+}
+.link-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 16px 10px;
+    border-radius: 0 0 0 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 50px;
+}
+.link-container a {
+    text-decoration: none;
+    color: var(--link-color);
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: normal;
+}
+.link-container a:hover {
+    transform: translateY(-2px);
+}
+.out {
+    text-align: left;
+    font-size: 56px;
+    padding:20px;
+}
+.block.shrink {
+    opacity: 0.5;
+    transform: scale(0.8); 
+}
 
-        .block:nth-child(1) { grid-column: 1 / span 1; grid-row: 1; }
-        .block:nth-child(2) { grid-column: 2 / span 1; grid-row: 1; }
-        .block:nth-child(3) { grid-column: 3 / span 1; grid-row: 1; }
-        .block:nth-child(4) { grid-column: 1 / span 2; grid-row: 2; }
-        .block:nth-child(5) { grid-column: 3 / span 1; grid-row: 2; }
 
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background-color: #333333;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            color: var(--link-color);
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 2px 12px;
-            background-color: var(--header-background);
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 200px;
-            margin-right: auto;
-            font-weight: normal;
-        }
-
-       .link-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 14px;
-            text-transform: uppercase;
-            padding: 16px 10px;
-            border-radius: 0 0 0 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-height: 50px;
-        }
-
-       .link-container a {
-            text-decoration: none;
-            color: var(--link-color);
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin: 0 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-weight: normal;
-        }
-
-       .link-container a:hover {
-            transform: translateY(-2px);
-        }
-        .out {
-        text-align: left;
-        font-size: 56px;
-        padding:20px;
-    }
+.block.active {
+    grid-column: span 3;
+    grid-row: span 1;
+    z-index: 10;
+}
 
 
     </style>
 </head>
 <body>
-
 <header class="header-container">
     <div class="header">CLEAN ENERGY</div>
     <div class="link-container">
-            <a href="home.html">Home</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="aqi.html">Air Quality</a>
+        <a href="home.html">Home</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="aqi.html">Air Quality</a>
     </div>
 </header>
-<div class ='out'>Powering Tomorrow</div>
-
 <div class="container">
-    <div class="block">Gardens:The plants absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these gardens help reduce visual pollution from the industries and factories being built in the cities.</div>
-    <div class="block">Use of Electric Vehicles: This will help decrease the burning of fossil fuels, helping reduce the increase in global warming and pollution. Moreover, these non-renewable resources can be sustained for future generations.</div>
-    <div class="block">Maintenance of The Home: Due to the roofs of houses, there is a great amount of runoff generated. This runoff can carry waste products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution.</div>
-    <div class="block">Recycling and Composting: Helps keep excess waste out of landfills. Moreover, buying products made from recycled materials helps contribute to the effort</div>
-    <div class="block">Avoid Aerosols: They contain gases that can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well.</div>
+    <div id="block1" class="block" onclick="toggleExpand(this.id)">Gardens: The plants absorb carbon dioxide, effectively reducing global warming and emitting oxygen, which is essential for humans to live. Moreover, these gardens help reduce visual pollution from the industries and factories being built in the cities. <div style="display:none;">Expanded info about Gardens.</div></div>
+    <div id="block2" class="block" onclick="toggleExpand(this.id)">Use of Electric Vehicles: This will help decrease the burning of fossil fuels, helping reduce the increase in global warming and pollution. Moreover, these non-renewable resources can be sustained for future generations. <div style="display:none;">Expanded info about Electric Vehicles.</div></div>
+    <div id="block3" class="block" onclick="toggleExpand(this.id)">Maintenance of The Home: Due to the roofs of houses, there is a great amount of runoff generated. This runoff can carry waste products from the house, such as oil from leaks, to water bodies, contaminating them. This leads to water pollution. <div style="display:none;">Expanded info about Home Maintenance.</div></div>
+    <div id="block4" class="block" onclick="toggleExpand(this.id)">Recycling and Composting: Helps keep excess waste out of landfills. Moreover, buying products made from recycled materials helps contribute to the effort <div style="display:none;">Expanded info about Recycling and Composting.</div></div>
+    <div id="block5" class="block" onclick="toggleExpand(this.id)">Avoid Aerosols: They contain gases that can contaminate the air and diminish the air quality. This would lead to global warming and acid rain affecting the soil and water as well. <div style="display:none;">Expanded info about Aerosols.</div></div>
 </div>
+<script>
+function toggleExpand(id) {
+    var block = document.getElementById(id);
+    var blocks = document.getElementsByClassName('block');
+    var isActive = block.classList.contains('active');
 
+    // Remove active and shrink from all blocks first
+    for (var i = 0; i < blocks.length; i++) {
+        blocks[i].classList.remove('active');
+        blocks[i].classList.remove('shrink');
+        blocks[i].getElementsByTagName('div')[0].style.display = 'none'; // Hide the content
+    }
+
+    // If the clicked block was not already active, activate it and shrink others
+    if (!isActive) {
+        block.classList.add('active');
+        block.getElementsByTagName('div')[0].style.display = 'block'; // Show the content
+        for (var i = 0; i < blocks.length; i++) {
+            if (blocks[i].id !== id) {
+                blocks[i].classList.add('shrink');
+            }
+        }
+    }
+}
+
+</script>
 <footer class="footer">&copy; 2024 Sustainable Cities. All rights reserved.</footer>
 </body>
 </html>
+
