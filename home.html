@@ -48,7 +48,7 @@
         text-align: left;
         position: relative;
         animation: backgroundAnimate 30s linear infinite;
-        border: 10px solid var(--header-background); 
+        border: 10px solid var(--header-background);
     }
 
     @keyframes backgroundAnimate {
@@ -70,47 +70,35 @@
         padding: 10px;
         display: inline-block;
         animation: slideInLeft 1s ease-in-out;
-        color: hsl(0, 0%, 95%); 
+        color: hsl(0, 0%, 95%);
     }
-   .quiz-container {
+    .link-container {
     position: absolute;
-    top: 1px;
+    top: 0;
     right: 0;
     display: flex;
+    background-color:#333333;
     justify-content: flex-end;
     align-items: center;
     font-size: 14px;
     text-transform: uppercase;
-    padding: 16px 10px;
+    padding: 10px 10px;
     border-radius: 0 0 0 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-height: 5px;
-    background-color: #333333;
+    max-height: 50px;
 }
-
-.quiz a {
+.link-container a {
     text-decoration: none;
     color: var(--link-color);
     padding: 2px 5px;
     border-radius: 3px;
     margin: 0 5px;
-    transition: transform 0.3s ease; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: normal;
 }
-
-.quiz a:hover {
-    color: var(--link-hover-color);
-    transform: translateY(-2px); 
+.link-container a:hover {
+    transform: translateY(-2px);
 }
-
-
-
-
-
-    .quiz {
-        margin-right: 20px;
-    }
-
-
     main {
         padding: 2rem;
         margin: 0 auto;
@@ -143,7 +131,7 @@
         animation: fadeIn 1s ease-in-out;
         display: flex;
         flex-direction: column;
-        cursor: pointer; 
+        cursor: pointer;
     }
 
     .news-title {
@@ -179,7 +167,7 @@
     top: 1px;
     left: 0; /* Adjusted left property */
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
 
     color: var(--link-color);
     font-size: 20px;
@@ -228,8 +216,10 @@
 
     <header>
         <div class="header">HOME</div>
-        <div class="quiz-container">
-            <h3 class="quiz"><a href="clean_energy.html">Clean Energy</a></h3><h3 class="quiz"><a href="quiz.html">Quiz</a></h3><h3 class="quiz"><a href="aqi.html">Air Quality Checker</a></h3>
+        <div class="link-container">
+            <a href="clean_energy.html">CLEAN ENERGY</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="aqi.html">Air Quality</a>
         </div>
         <a href="https://www.un.org/sustainabledevelopment/" target="_blank">
             <img class="logo" src="https://tse4.mm.bing.net/th?id=OIP.VLgY4xLjVCnmueyWmQ47YAHaHa&pid=Api&P=0&h=180" alt="UN SDG Logo">
