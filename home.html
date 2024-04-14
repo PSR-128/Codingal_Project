@@ -6,16 +6,16 @@
     <title>Sustainable Cities</title>
     <style>
     :root {
-        --background-color: #007bff;
+
         --text-color: #fff;
-        --accent-color: #ffd700;
+
         --button-hover-color: #6a1fc2;
         --header-background: #333333;
         --link-color: #7effb6;
         --link-hover-color: #333333;
         --input-border-color: #ccc;
         --input-placeholder-color: #ccc;
-        --input-focus-border-color: #56ab2f;
+        --input-focus-border-color: #7effb6;
         --input-label-color: #ccc;
         --input-label-focus-color: #999;
         --progress-value-color: #00FF00;
@@ -61,7 +61,7 @@
     }
 
     h1, h2 {
-        color: #2ECC71;
+        color: #7effb6;
         animation: slideInLeft 1s ease-in-out;
     }
 
@@ -119,19 +119,20 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        align-items: center;
+        align-items: flex-start;
     }
 
     .news-box {
-        width: calc(25% - 20px);
+        width: calc(20% - 20px);
         height: auto;
         border: 2px solid #3EB489;
         padding: 20px;
-        margin: 10px;
+        margin: 5px;
         animation: fadeIn 1s ease-in-out;
         display: flex;
         flex-direction: column;
         cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .news-title {
@@ -140,6 +141,7 @@
         animation: slideInLeft 1s ease-in-out;
         overflow: hidden;
         height: 60px;
+        color: #ffffff;
     }
 
     .news-image {
@@ -149,10 +151,11 @@
         margin-bottom: 10px;
         animation: slideInLeft 1s ease-in-out;
     }
-
-    .news-content {
-        display: none;
+    .news-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
+
 
 
 
