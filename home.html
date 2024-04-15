@@ -36,21 +36,6 @@
         padding-left: 2px; /* Add padding to shift content away from the border */
     }
 
-    header {
-        background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
-
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        opacity: 0.7;
-        padding: 7.18rem 4rem;
-        color: #333;
-        text-align: left;
-        position: relative;
-        animation: backgroundAnimate 30s linear infinite;
-        border: 10px solid var(--header-background);
-    }
-
     @keyframes backgroundAnimate {
         0% {
             background-position: 100% 50%;
@@ -84,8 +69,9 @@
     text-transform: uppercase;
     padding: 10px 10px;
     border-radius: 0 0 0 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
     max-height: 50px;
+    opacity: 1.0;
 }
 .link-container a {
     text-decoration: none;
@@ -95,7 +81,9 @@
     margin: 0 5px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-weight: normal;
+    opacity: 1.0;
 }
+
 .link-container a:hover {
     transform: translateY(-2px);
 }
@@ -184,9 +172,6 @@
     margin-right: auto;
 }
 
-
-
-
     body {
         position: relative; /* Add relative position to body */
         padding-left: 2px; /* Add padding to shift content away from the border */
@@ -212,6 +197,20 @@
             transform: translateY(0);
             opacity: 1;
         }
+    }
+    header {
+        background-image: url('https://energync.org/wp-content/uploads/2021/05/CleanvNotClean-image2021v3.jpg');
+
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 7.18rem 4rem;
+        color: #333;
+        opacity: 0.8;
+        text-align: left;
+        position: relative;
+        animation: backgroundAnimate 30s linear infinite;
+        border: 10px solid var(--header-background);
     }
 </style>
 </head>
