@@ -1,580 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Energy Air Quality Checker</title>
-    <style>
-:root {
-            /* Color scheme and other root variables */
-            --background-color: #007bff;
-            --text-color: #333;
-            --accent-color: #ffd700;
-            --button-hover-color: #6a1fc2;
-            --header-background: #333333;
-            --link-color: #7effb6;
-            --link-hover-color: #333333;
-            --input-border-color: #ccc;
-            --input-placeholder-color: #ccc;
-            --input-focus-border-color: #56ab2f;
-            --input-label-color: #ccc;
-            --input-label-focus-color: #999;
-            --progress-value-color: #00FF00;
-            --inner-textbox-color: #3CB371;
-            --inner-circular-progress-color: #3CB371;
-        }
+from flask import Flask, request, jsonify, render_template, Response, send_file
+import requests
+import ozon3 as ooo
+import plotly.graph_objects as go
+import pandas as pd
 
-        body, html {
+app = Flask(__name__)
 
-            font-family: Arial, sans-serif;
-            background: #333333;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
+# API Keys and configuration
+WAQI_TOKEN = 'a5ce4f19eae698a8cd0088d064a2876a218d614c'
+NEWS_API_KEY = 'XlmQZDkCfwzWUhtKQmIJazy2C8dwh5y4 '
+o3 = ooo.Ozon3(WAQI_TOKEN)
 
-       .header {
-            color: var(--link-color);
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 2px 12px;
-            background-color: var(--header-background);
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 150px;
-            margin-right: auto;
-        }
+@app.route('/')
+def index():
+    return render_template('home.html')
 
-       .link-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 14px;
-            text-transform: uppercase;
-            padding: 16px 10px;
-            border-radius: 0 0 0 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-height: 50px;
-        }
-
-       .link-container a {
-            text-decoration: none;
-            color: var(--link-color);
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin: 0 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-       .link-container a:hover {
-            transform: translateY(-2px);
-        }
-
-       .input-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-end;
-            margin-top: 50px;
-            margin-right: 20px;
-            padding: 0 20px;
-        }
-
-       .input-text:focus {
-            border-color: var(--input-focus-border-color);
-            outline: none;
-        }
-
-       .input-label {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            color: var(--input-label-color);
-            pointer-events: none;
-            transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
-            font-size: 16px;
-        }
-
-       .input-text:focus +.input-label,
-       .input-text:not(:placeholder-shown) +.input-label {
-            top: 0;
-            left: 10px;
-            font-size: 12px;
-            color: var(--input-label-focus-color);
-        }
-
-       .submit-button {
-            background-color: var(--accent-color);
-            border: none;
-            color: var(--text-color);
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-        }
-
-       .submit-button:hover {
-            background-color: var(--button-hover-color);
-        }
-
-       .circular-progress {
-            position: relative;
-            height: 300px;
-            width: 300px;
-            border-radius: 50%;
-            background: conic-gradient(var(--accent-color) 3.6deg, var(--inner-circular-progress-color) 0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            margin-left: 20px;
-            animation: progressAnimation 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) forwards;
-        }
-
-        @keyframes progressAnimation {
-            from {
-                background: conic-gradient(var(--accent-color) 0deg, var(--inner-circular-progress-color) 0deg);
-            }
-            to {
-                background: conic-gradient(var(--accent-color) 360deg, var(--inner-circular-progress-color) 0deg);
-            }
-        }
-
-       .circular-progress::before {
-            content: "";
-            position: absolute;
-            height: 250px;
-            width: 250px;
-            border-radius: 50%;
-            background-color: var(--background-color);
-        }
-
-       .progress-value {
-            position: relative;
-            font-size: 60px;
-            font-weight: 600;
-            color: var(--progress-value-color);
-        }
-
-       .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background-color: #333333;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-       .logo {
-            height: 50px;
-        }
-
-       .logo img {
-            height: 100%;
-            object-fit: contain;
-        }
-
-       .search-bar {
-            display: flex;
-            align-items: center;
-            height: 40px;
-            padding: 0 10px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            background-color: #f0f0f0;
-        }
-
-       .input-text {
-            width: 300px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-       .menu-links {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-       .menu-links a {
-            text-decoration: none;
-            color: #fff;
-            padding: 2px 5px;
-            transition: background-color 0.3s ease;
-        }
-
-       .menu-links a:hover {
-            background-color: #56ab2f;
-        }
-
-        .table-container {
-            display: flex;
-            flex-direction: column;
-            width: 45%;
-            height:40%;
-            align-items: flex-end;
-            position: absolute;
-            top: 575px;
-            right: 650px;
-            display: none;
-        }
-
-table {
-    color: white;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-th, td {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 12px;
-    text-align: left;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-th {
-    background-color: rgba(255, 255, 255, 0.2);
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-}
-
-tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-tr:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-th:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-        .chart-container {
-    position: relative;
-    display: block;
-    top: 600px;
-    right:39px;
-    background-color: #333333;
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    width: 90%;
-    height: 500px;
-    margin: 0 auto;
-}
-
-.text {
-        position: absolute;
-        right: 250px;
-        top: 610px;
-        width: 300px;
-        padding: 20px;
-        background-color: #333333;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
-        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        overflow: hidden;
-    }
-
-    .text p {
-        color: #ffffff;
-        font-size: 18px;
-        line-height: 1.5;
-    }
-
-    .text.active {
-        height:1000px;
-        width: 1000px;
-    }
-
-    .text.shrink {
-        max-height: 100px;
-    }
-
-    .text.shrink p {
-        opacity: 0;
-        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    }
-
-    .text.active p {
-        opacity: 1;
-    }
-
-    .text div {
-        display: none;
-    }
-
-    .text.active div {
-        display: block;
-    }
-
-    .text:hover {
-        transform: translateY(-5px);
-        box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.4);
-    }
-
-    .text p:first-child {
-        margin-bottom: 10px;
-    }
-
-    .text div p {
-        margin-top: 10px;
-    }
-.image{
-    margin-right:450px;
-    position: absolute;
-    height: 75%;
-    width: 45%;
-    top: 150px;
-    right: -20%;
-
-}
-    </style>
-</head>
-<body>
-    <header class="header-container">
-        <div class="header">Air Quality</div>
-        <div class="link-container">
-            <a href="home.html">Home</a>
-            <a href="quiz.html">Quiz</a>
-            <a href="clean_energy.html">Clean Energy</a>
-        </div>
-    </header>
-
-    <div class="input-container">
-        <input type="text" id="cityInput" class="input-text" placeholder="Enter city name">
-        <button id ="AqiButton" class="submit-button">Get AQI</button>
-    </div>
-
-    <div class="circular-progress" id="progressCircle">
-        <span class="progress-value" id="progressText"></span>
-    </div>
-
-
-    <div class="table-container" style="display: none;">
-        <table id="airQualityTable">
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody id="airQualityTableBody">
-                <!-- Table rows will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-    <img class ="image" src="https://www.lrapa.org/wp-content/uploads/2022/10/AQI-Graphic-747x1024.png" alt="Loading...">
-
-    <div id="aqiChartCanvas" class="chart-container"></div>
-    <div class="text" id="aqi-block" onclick="toggleExpand(this.id)">
-    <p>The Air Quality Index (AQI) assigns a score to different areas indicating the cleanliness of the air. A lower AQI score signifies better air quality.</p>
-    <div style="display: none;">
-        <p>AQI scores range from 0 to 500. The higher the AQI value, the greater the level of air pollution and the greater the health concern. For example, an AQI value of 50 represents good air quality with little potential to affect public health, while an AQI value over 300 represents hazardous air quality.</p>
-    </div>
-    </div>
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var input = document.getElementById('cityInput');
-    var button = document.getElementById('AqiButton');
-    input.addEventListener('keypress', function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            getAirQualityData();
-        }
-    });
-    button.addEventListener('click', function() {
-        getAirQualityData();
-    });
-
-    function getAirQualityData() {
-        var cityName = document.getElementById("cityInput").value;
-        axios.get(`/get_aqi?city=${encodeURIComponent(cityName)}`)
-            .then(response => {
-                const data = response.data;
-                if (data && data.aqi !== undefined && data.air_quality_data) {
-                    var aqi = data.aqi;
-                    var airQualityData = data.air_quality_data;
-
-                    document.getElementById("progressText").innerText = aqi;
-                    populateAirQualityTable(airQualityData);
-                    animateProgressBar(aqi);
-
-                    document.querySelector('.table-container').style.display = 'block';
-                    document.querySelector('.chart-container').style.display = 'block';
-
-                    // Update the chart with historical AQI data
-                    getHistoricalAQIData(cityName);
-                } else {
-                    console.error('Unexpected response format:', data);
-                }
+@app.route('/get_aqi')
+def get_aqi():
+    city = request.args.get('city')
+    response = requests.get(f'https://api.waqi.info/feed/{city}/?token={WAQI_TOKEN}')
+    if response.ok:
+        data = response.json()
+        if 'data' in data and 'aqi' in data['data']:
+            return jsonify({
+                'aqi': data['data']['aqi'],
+                'air_quality_data': {k: data['data']['iaqi'].get(k, {}).get('v', 'N/A') for k in
+                                     ['dew', 'h', 'p', 't', 'w', 'wg', 'pm25', 'pm10', 'co', 'o3', 'no2', 'so2']}
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+    return jsonify({'error': 'AQI data not available for the specified city'})
 
-    function getHistoricalAQIData(city) {
-    axios.get(`/get_historical_aqi_plot?city=${encodeURIComponent(city)}`)
-        .then(response => {
-            const plotData = response.data;
-            if (plotData && !plotData.error) {
-                // Assuming plotData is already in the correct format required by Plotly.
-                Plotly.newPlot('aqiChartCanvas', plotData);  // Ensure this ID matches the container in your HTML
-            } else {
-                document.getElementById('aqiChartCanvas').innerHTML = '<p>No data available.</p>';
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching plot data:', error);
-            document.getElementById('aqiChartCanvas').innerHTML = '<p>Error loading data.</p>';
-        });
-}
 
-function fetchAndDisplayChart(city) {
-    fetch(`/get_historical_aqi_plot?city=${city}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert("No data available");
-            } else {
-                // Correctly use Plotly.newPlot to plot the data
-                Plotly.newPlot('aqiChart', JSON.parse(data.plotData));
-            }
-        })
-        .catch(error => console.error('Error loading the AQI data:', error));
-}
-    function animateProgressBar(aqi) {
-    console.log("AQI Value:", aqi); // Check the AQI value
-    var circle = document.getElementById('progressCircle');
-    if (!circle) {
-        console.log("Element not found!");
-        return;
-    }
-    var newStyle = `conic-gradient(var(--accent-color) ${aqi * 3.6}deg, var(--inner-circular-progress-color) 0deg)`;
-    console.log("Applying style:", newStyle); // See what style is being applied
-    circle.style.background = newStyle;
-}
+def plot_historical_aqi(city):
+    data = o3.get_historical_data(city=city)
+    if isinstance(data, pd.DataFrame):
+        data = data.dropna(subset=['date'])
+        dates = data['date']
+        fig = go.Figure()
 
-    function populateAirQualityTable(airQualityData) {
-        var tableBody = document.getElementById("airQualityTableBody");
-        tableBody.innerHTML = "";
+        for pollutant in ['pm2.5', 'pm10', 'o3', 'co', 'no2', 'so2']:
+            if pollutant in data.columns:
+                fig.add_trace(go.Scatter(x=dates, y=data[pollutant], mode='lines+markers', name=pollutant.upper()))
 
-        Object.entries(airQualityData).forEach(([key, value]) => {
-             if (key === 'dew') {
-                key = 'Dew';
-             }
-             if (key === 'h') {
-                key = 'Humidity';
-             }
-             if (key === 'p') {
-                key = 'Pressure';
-             }
-             if (key === 't') {
-                key = 'Temperature';
-             }
-             if (key === 'w') {
-                key = 'Wind Speed';
-             }
-             if (key === 'wg') {
-                key = 'Wind Gust';
-             }
-             if (key === 'pm25') {
-                key = 'PM-2.5';
-             }
-             if (key === 'pm10') {
-                key = 'PM-10';
-             }
-             if (key === 'co') {
-                key = 'CO';
-             }
-             if (key === 'o3') {
-                key = 'O3';
-             }
-             if (key === 'no2') {
-                key = 'NO2';
-             }
-             if (key === 'so2') {
-                key = 'SO2';
-             }
-            var row = `<tr><td>${key}</td><td>${value}</td></tr>`;
-            tableBody.innerHTML += row;
-        });
-    }
+        fig.update_layout(
+            title=f'Historical Air Quality Data for {city} (2014 - Present)',
+            xaxis_title='Date',
+            yaxis_title='Concentration',
+            legend_title='Pollutants'
+        )
 
-    if (document.getElementById('cityInput').form) {
-        document.getElementById('cityInput').form.onsubmit = function(event) {
-    event.preventDefault();
-    getAirQualityData();
-};
-    }
-});
-function toggleExpand(id) {
-    var block = document.getElementById(id);
-    var blocks = document.getElementsByClassName('text');
-    var isActive = block.classList.contains('active');
+        # Return plot as JSON for web integration
+        return fig.to_json()
+    else:
+        return jsonify({'error': 'Data is not in the expected format'}), 400
 
-    // Remove active and shrink from all blocks first
-    for (var i = 0; i < blocks.length; i++) {
-        blocks[i].classList.remove('active');
-        blocks[i].classList.remove('shrink');
-        blocks[i].getElementsByTagName('div')[0].style.display = 'none'; // Hide the content
-    }
+# Use this in a Flask route
+@app.route('/get_historical_aqi_plot')
+def get_historical_aqi_plot():
+    city = request.args.get('city')
+    plot_json = plot_historical_aqi(city)
+    if isinstance(plot_json, str):
+        return Response(plot_json, mimetype='application/json')
+    else:
+        return plot_json
 
-    // If the clicked block was not already active, activate it and shrink others
-    if (!isActive) {
-        block.classList.add('active');
-        block.getElementsByTagName('div')[0].style.display = 'block'; // Show the content
-        for (var i = 0; i < blocks.length; i++) {
-            if (blocks[i].id !== id) {
-                blocks[i].classList.add('shrink');
-            }
-        }
-    } else {
-        // If the clicked block was already active, return it to its original position and size
-        block.classList.remove('active');
-        for (var i = 0; i < blocks.length; i++) {
-            blocks[i].classList.remove('shrink');
-        }
-        block.style.right = '250px';
-        block.style.top = '610px';
-        block.style.transform = 'translate(0, 0)';
-    }
-    // Move the active block to the center of the screen
-    var activeBlock = document.getElementsByClassName('active')[0];
-    if (activeBlock) {
-        activeBlock.style.right = '50%';
-        activeBlock.style.top = '50%';
-        activeBlock.style.transform = 'translate(50%, 10%)';
-    }
-}
-</script>
-</body>
-</html>
+
+
+@app.route('/get_good_aqi_cities')
+def get_good_aqi_cities_route():
+    good_cities = [city for city in [
+        "Tokyo", "Delhi", "Shanghai", ...  # Add your full list of cities here
+    ] if requests.get(f'https://api.waqi.info/feed/{city}/?token={WAQI_TOKEN}').ok and requests.get(f'https://api.waqi.info/feed/{city}/?token={WAQI_TOKEN}').json()['data']['aqi'] <= 100]
+    return jsonify(good_cities)
+
+@app.route('/news_content')
+def news_content():
+    response = requests.get(f'https://newsapi.org/v2/everything?q=renewable+energy&apiKey={NEWS_API_KEY}&pageSize=12')
+    articles = [{'title': article['title'], 'content': article['content']} for article in response.json().get('articles', [])] if response.ok else []
+    return render_template('news.html', articles=articles)
+
+# Additional routes for other pages
+@app.route('/home.html')
+def home_page():
+    return render_template('home.html')
+
+@app.route('/quiz.html')
+def quiz_page():
+    return render_template('quiz.html')
+
+@app.route('/clean_energy.html')
+def clean_energy_page():
+    return render_template('clean_energy.html')
+
+@app.route('/news.html')
+def news_page():
+    return render_template('news.html')
+
+@app.route('/aqi.html')
+def aqi_page():
+    city = request.args.get('city')
+    response = requests.get(f'http://127.0.0.1:5000/get_aqi?city={city}')
+    if response.ok:
+        data = response.json()
+        if 'aqi' in data:
+            aqi = data['aqi']
+            air_quality_data = data.get('air_quality_data', {})
+            return render_template('aqi.html', aqi=aqi, air_quality_data=air_quality_data)
+
+    return render_template('aqi.html', error='AQI data not available for the specified city')
+
+if __name__ == '__main__':
+    app.run(debug=True)
