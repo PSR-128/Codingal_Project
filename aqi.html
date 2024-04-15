@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clean Energy Air Quality Checker</title>
     <style>
-        :root {
+:root {
             /* Color scheme and other root variables */
             --background-color: #007bff;
             --text-color: #333;
@@ -25,6 +25,7 @@
         }
 
         body, html {
+
             font-family: Arial, sans-serif;
             background: #333333;
             color: var(--text-color);
@@ -221,15 +222,16 @@
         }
 
         .table-container {
-    display: flex;
-    flex-direction: column;
-    width: 64.67%;
-    align-items: flex-end;
-    position: absolute;
-    top: 200px;
-    right: 40px;
-    display: none;
-}
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+            height:40%;
+            align-items: flex-end;
+            position: absolute;
+            top: 575px;
+            right: 650px;
+            display: none;
+        }
 
 table {
     color: white;
@@ -270,7 +272,8 @@ th:hover {
         .chart-container {
     position: relative;
     display: block;
-    top: 185px;  /* Updated from top-margin to top */
+    top: 600px;
+    right:39px;
     background-color: #333333;
     color: #ffffff;
     padding: 20px;
@@ -282,8 +285,71 @@ th:hover {
     margin: 0 auto;
 }
 
-.text{
-    color:#ffffff
+.text {
+        position: absolute;
+        right: 250px;
+        top: 610px;
+        width: 300px;
+        padding: 20px;
+        background-color: #333333;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        overflow: hidden;
+    }
+
+    .text p {
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 1.5;
+    }
+
+    .text.active {
+        height:1000px;
+        width: 1000px;
+    }
+
+    .text.shrink {
+        max-height: 100px;
+    }
+
+    .text.shrink p {
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .text.active p {
+        opacity: 1;
+    }
+
+    .text div {
+        display: none;
+    }
+
+    .text.active div {
+        display: block;
+    }
+
+    .text:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.4);
+    }
+
+    .text p:first-child {
+        margin-bottom: 10px;
+    }
+
+    .text div p {
+        margin-top: 10px;
+    }
+.image{
+    margin-right:450px;
+    position: absolute;
+    height: 75%;
+    width: 45%;
+    top: 150px;
+    right: -20%;
+
 }
     </style>
 </head>
@@ -305,10 +371,8 @@ th:hover {
     <div class="circular-progress" id="progressCircle">
         <span class="progress-value" id="progressText"></span>
     </div>
-    <div class="text">
-    <p>AQI (Air Qualtiy Index) is the score given to regions based on how healthy the air is. Lower the AQI score = better air quality.</p>
-        <img src="https://www.lrapa.org/wp-content/uploads/2022/10/AQI-Graphic-747x1024.png" alt="Sorry,no image">
-    </div>
+
+
     <div class="table-container" style="display: none;">
         <table id="airQualityTable">
             <thead>
@@ -322,8 +386,15 @@ th:hover {
             </tbody>
         </table>
     </div>
+    <img class ="image" src="https://www.lrapa.org/wp-content/uploads/2022/10/AQI-Graphic-747x1024.png" alt="Loading...">
 
     <div id="aqiChartCanvas" class="chart-container"></div>
+    <div class="text" id="aqi-block" onclick="toggleExpand(this.id)">
+    <p>The Air Quality Index (AQI) assigns a score to different areas indicating the cleanliness of the air. A lower AQI score signifies better air quality.</p>
+    <div style="display: none;">
+        <p>AQI scores range from 0 to 500. The higher the AQI value, the greater the level of air pollution and the greater the health concern. For example, an AQI value of 50 represents good air quality with little potential to affect public health, while an AQI value over 300 represents hazardous air quality.</p>
+    </div>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -460,11 +531,50 @@ function fetchAndDisplayChart(city) {
 
     if (document.getElementById('cityInput').form) {
         document.getElementById('cityInput').form.onsubmit = function(event) {
-    event.preventDefault();  // Prevent the form from submitting
-    getAirQualityData();  // Call your function to fetch data
+    event.preventDefault();
+    getAirQualityData();
 };
     }
 });
+function toggleExpand(id) {
+    var block = document.getElementById(id);
+    var blocks = document.getElementsByClassName('text');
+    var isActive = block.classList.contains('active');
+
+    // Remove active and shrink from all blocks first
+    for (var i = 0; i < blocks.length; i++) {
+        blocks[i].classList.remove('active');
+        blocks[i].classList.remove('shrink');
+        blocks[i].getElementsByTagName('div')[0].style.display = 'none'; // Hide the content
+    }
+
+    // If the clicked block was not already active, activate it and shrink others
+    if (!isActive) {
+        block.classList.add('active');
+        block.getElementsByTagName('div')[0].style.display = 'block'; // Show the content
+        for (var i = 0; i < blocks.length; i++) {
+            if (blocks[i].id !== id) {
+                blocks[i].classList.add('shrink');
+            }
+        }
+    } else {
+        // If the clicked block was already active, return it to its original position and size
+        block.classList.remove('active');
+        for (var i = 0; i < blocks.length; i++) {
+            blocks[i].classList.remove('shrink');
+        }
+        block.style.right = '250px';
+        block.style.top = '610px';
+        block.style.transform = 'translate(0, 0)';
+    }
+    // Move the active block to the center of the screen
+    var activeBlock = document.getElementsByClassName('active')[0];
+    if (activeBlock) {
+        activeBlock.style.right = '50%';
+        activeBlock.style.top = '50%';
+        activeBlock.style.transform = 'translate(50%, 10%)';
+    }
+}
 </script>
 </body>
 </html>
